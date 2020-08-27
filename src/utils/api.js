@@ -1,11 +1,11 @@
 // Hacker News - base url.
 const baseUrl = 'https://hacker-news.firebaseio.com/v0/'
 
-// Fetch hacker news story by id.
-const fetchStory = id => {
+// Fetch hacker news Item (story or comment) by id.
+const fetchItem = id => {
 	return fetch(`${baseUrl}/item/${id}.json`)
 		.then(res => res.json())
-		.then(story => story)
+		.then(item => item)
 		.catch(e => {
 			throw new Error(e);
 		})
