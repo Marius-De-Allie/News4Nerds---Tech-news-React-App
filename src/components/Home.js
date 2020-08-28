@@ -13,7 +13,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        fetchStories()
+        fetchStories('topstories')
         .then(topStories => {
           this.setState(prevState => ({
             topStories
