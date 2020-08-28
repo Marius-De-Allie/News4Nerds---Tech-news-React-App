@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import StoryList from './StoryList';
+import fetchStories from '../utils/api';
 
 class Home extends Component {
 
@@ -9,6 +10,16 @@ class Home extends Component {
         this.state = {
             topStories: null
         }
+    }
+
+    componentDidMount() {
+        fetchStories()
+        .then(topStories => {
+          this.setState(prevState => ({
+            topStories
+          }));
+        })
+        .catch(e => console.warn(e));
     }
 
     render() {
