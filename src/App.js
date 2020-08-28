@@ -1,5 +1,6 @@
 import React from 'react';
 import fetchStories from './utils/api';
+import Home from './components/Home';
 
 class App extends React.Component {
 
@@ -21,7 +22,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        App
+        <Home />
         {JSON.stringify(this.state.stories)}
       </div>
     );
