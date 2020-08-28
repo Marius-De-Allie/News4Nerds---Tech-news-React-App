@@ -1,24 +1,28 @@
 import React from 'react';
-import { fetchTopStoryIds } from './utils/api';
+import fetchStories from './utils/api';
 
 class App extends React.Component {
 
   state = {
-    Ids: null
+    stories: null
   }
 
   componentDidMount() {
-    fetchTopStoryIds()
-      .then(Ids => this.setState({
-        Ids
-      }))
+
+    fetchStories()
+      .then(stories => {
+        this.setState(prevState => ({
+          stories
+        }));
+      })
+      .catch(e => console.warn(e));
   }
 
   render() {
     return (
       <div>
         App
-        {JSON.stringify(this.state.Ids)}
+        {JSON.stringify(this.state.stories)}
       </div>
     );
   }
