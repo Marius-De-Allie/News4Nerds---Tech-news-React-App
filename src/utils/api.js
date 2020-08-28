@@ -11,9 +11,9 @@ const fetchItem = id => {
 		})
 };
 
-// Fetch top stories from hacker news API.
-const fetchTopStoryIds = () => {
-	return fetch(`${baseUrl}topstories.json`)
+// Fetch top or new (based on endpoint arg passedin) stories from hacker news API.
+const fetchStoryIds = endpoint => {
+	return fetch(`${baseUrl}${endpoint}.json`)
 		.then(res => res.json())
 		.then(Ids => Ids.slice(null, 50))
 		.catch(e => {
@@ -23,11 +23,11 @@ const fetchTopStoryIds = () => {
 };
 
 // Fetch array of story objects.
-const fetchStories = async () => {
+const fetchStories = async (endpoint) => {
 	let stories = [];
 	try {
 		// 1. Get list of top 50 story ids from HN.
-		const ids = await fetchTopStoryIds();
+		const ids = await fetchStoryIds(endpoint);
 		// 2. Loop over ids array and add each corresponding item to the stories array.
 		for(let i = 0; i < ids.length; i++) {
 			let item = await fetchItem(ids[i]);
@@ -41,7 +41,5 @@ const fetchStories = async () => {
 };
 
 export {
-	fetchStories as default,
-	fetchTopStoryIds,
-	fetchItem
+	fetchStories as default
 }
