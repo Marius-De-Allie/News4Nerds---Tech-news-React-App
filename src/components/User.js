@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import queryString from 'query-string';
 import StoryList from './StoryList';
 import { fetchUserStories } from '../utils/api';
 
@@ -12,7 +13,11 @@ class User extends Component {
 	}
 
 	componentDidMount() {
-		fetchUserStories('oftenwrong')
+		const { location } = this.props;
+		// Retrieve query string from url and parse into an object.
+		const { id } = queryString.parse(location.search);
+
+		fetchUserStories(id)
 			.then(userStories => this.setState(prevState => ({
 				userStories
 			})))

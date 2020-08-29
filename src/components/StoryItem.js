@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const StoryItem = ({ by, descendants, id, kids, score, time, title, type, url, match }) => (
+const StoryItem = ({ by, descendants, id, kids, score, time, title, type, url }) => (
     <li>
         {/* TODO add avatar/icon */}
         <a 
@@ -15,7 +15,7 @@ const StoryItem = ({ by, descendants, id, kids, score, time, title, type, url, m
             {'👨‍💻Posted by'}
             <Link
                 to={{
-                    pathname: `${match.path}/user`,
+                    pathname: '/user',
                     search: `?id=${by}`
                 }}
             >
@@ -35,6 +35,6 @@ const StoryItem = ({ by, descendants, id, kids, score, time, title, type, url, m
     </li>
 );
 
-export default withRouter(StoryItem);
+export default StoryItem;
 
 
