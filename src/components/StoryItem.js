@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
-const StoryItem = ({ by, descendants, id, kids, score, time, title, type, url }) => (
+const StoryItem = ({ by, descendants, id, kids, score, time, title, type, url, match }) => (
     <li>
         {/* TODO add avatar/icon */}
         <a 
@@ -14,9 +14,10 @@ const StoryItem = ({ by, descendants, id, kids, score, time, title, type, url })
         <p>
             {'👨‍💻Posted by'}
             <Link
-                // to={{
-                    
-                // }}
+                to={{
+                    pathname: `${match.path}/user`,
+                    search: `?id=${by}`
+                }}
             >
                 {` ${by} `}
             </Link>
