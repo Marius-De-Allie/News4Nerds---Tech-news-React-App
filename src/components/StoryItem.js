@@ -14,7 +14,7 @@ const StoryItem = ({ by, descendants, id, kids, score, time, title, type, url })
             {'👨‍💻Posted by'}
             <a href={url}>{` ${by} `}</a>
             on {`${time},`}
-            {kids ? <a href={url}>{` ${kids.length} `}</a> : ' 0 '}comments
+            {descendants > 0 ? <a href={url}>{` ${descendants} `}</a> : ' 0 '}comments
         </p>
     </li>
 );

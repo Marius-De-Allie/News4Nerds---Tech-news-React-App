@@ -40,6 +40,37 @@ const fetchStories = async (endpoint) => {
 	return stories;
 };
 
+/**** HN USER API ****/
+
+// Fetch HN user details.
+const fetchUser = userId => {
+	return fetch(`${baseUrl}user/${userId}.json`)
+		.then(res => res.json())
+		.then(userData => userData)
+		.catch(e => {
+			throw new Error(e);
+		});
+};
+
+// Fetch HN stories by a specific user.
+const fethcUserStories = async(userId) => {
+	let userStories = [];
+
+	// 1. Fetch user data from HN API.
+	const userData = await fetchUser(userId);
+	// 2. Loop over user's list of submitted stories, comments, polls, etc.
+	for(let i = 0; i < userData.submitted.length; i ++) {
+	// 3. Fetch each item.
+		let item = await fetchItem(userData.submitted[i]);
+	// 4. check whether item is a story and if so, add to userStories array.
+		if(item.type === 'story') {
+			userStories.push(item)
+		}
+	}
+	return userStories;
+};
+
 export {
-	fetchStories as default
+	fetchStories as default,
+	fethcUserStories
 }
