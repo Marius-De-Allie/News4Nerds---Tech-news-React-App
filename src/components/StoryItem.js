@@ -13,7 +13,7 @@ const StoryItem = ({ by, descendants, id, kids, score, time, title, type, url })
         <p>
             {'👨‍💻Posted by'}
             <a href={url}>{` ${by} `}</a>
-            on {`${time},`}
+            on {`${new Date((time * 1000)).toLocaleString()},`}
             {descendants > 0 ? <a href={url}>{` ${descendants} `}</a> : ' 0 '}comments
         </p>
     </li>

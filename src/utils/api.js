@@ -53,16 +53,18 @@ const fetchUser = userId => {
 };
 
 // Fetch HN stories by a specific user.
-const fethcUserStories = async(userId) => {
+const fetchUserStories = async(userId) => {
 	let userStories = [];
 
 	// 1. Fetch user data from HN API.
 	const userData = await fetchUser(userId);
-	// 2. Loop over user's list of submitted stories, comments, polls, etc.
-	for(let i = 0; i < userData.submitted.length; i ++) {
-	// 3. Fetch each item.
-		let item = await fetchItem(userData.submitted[i]);
-	// 4. check whether item is a story and if so, add to userStories array.
+	// 2. Return an array of the user's last 50 submissions.
+	const userSubmitted = userData.submitted.slice(null, 50); 
+	// 3. Loop over user's list of last 50 submitted stories, comments, polls, etc.
+	for(let i = 0; i < userSubmitted.length; i ++) {
+	// 4. Fetch each submission item.
+		let item = await fetchItem(userSubmitted[i]);
+	// 5. check whether item is a story and if so, add to userStories array.
 		if(item.type === 'story') {
 			userStories.push(item)
 		}
@@ -72,5 +74,5 @@ const fethcUserStories = async(userId) => {
 
 export {
 	fetchStories as default,
-	fethcUserStories
+	fetchUserStories
 }
