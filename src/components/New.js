@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import StoryList from './StoryList';
+import fetchStories from '../utils/api';
 
 class New extends Component {
     constructor(props) {
@@ -10,11 +11,19 @@ class New extends Component {
         }
     }
 
+    componentDidMount() {
+      fetchStories('newstories')
+        .then(newStories => this.setState(prevState => ({
+          newStories
+        })))
+        .catch(e => console.warn(e))
+    }
+
     render() {
+      const { newStories } = this.state;
         return (
           <React.Fragment>
-            New Stories
-            <StoryList />
+            <StoryList stories={newStories} />
           </React.Fragment>
         );
     }

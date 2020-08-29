@@ -1,7 +1,7 @@
 import React from 'react';
-import fetchStories from './utils/api';
 import Nav from './components/Nav';
 import Home from './components/Home';
+import New from './components/New';
 
 class App extends React.Component {
 
@@ -10,6 +10,7 @@ class App extends React.Component {
       <div>
         <Nav />
         <Home />
+        <New />
       </div>
     );
   }
