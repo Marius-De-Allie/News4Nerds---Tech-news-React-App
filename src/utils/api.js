@@ -74,5 +74,6 @@ const fetchUserStories = async(userId) => {
 
 export {
 	fetchStories as default,
-	fetchUserStories
+	fetchUserStories,
+	fetchUser
 }
