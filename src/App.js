@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import Nav from './components/Nav';
 import Home from './components/Home';
 import New from './components/New';
@@ -10,9 +11,11 @@ class App extends React.Component {
     return (
       <div>
         <Nav />
-        {/*<Home />*/}
-        {/*<New />*/}
-        <User />
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route path='/new' component={New} />
+          <Route path='/user' component={User} />
+        </Switch>
       </div>
     );
   }

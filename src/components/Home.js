@@ -26,7 +26,7 @@ class Home extends Component {
         const { topStories } = this.state;
         return (
             <React.Fragment>
-                Home/Top Stories
+                <h1>Top Stories</h1>
                 <StoryList stories={topStories} />
             </React.Fragment>
         );
