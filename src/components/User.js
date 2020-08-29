@@ -8,6 +8,7 @@ class User extends Component {
 		super(props);
 
 		this.state = {
+			userDetails: null,
 			userStories: null
 		}
 	}
