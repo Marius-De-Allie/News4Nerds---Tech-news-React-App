@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
 import StoryList from './StoryList';
-import { fetchUserStories } from '../utils/api';
+import { fetchUserStories, fetchUser } from '../utils/api';
 
 class User extends Component {
 	constructor(props) {
@@ -17,6 +17,12 @@ class User extends Component {
 		const { location } = this.props;
 		// Retrieve query string from url and parse into an object.
 		const { id } = queryString.parse(location.search);
+		// Fetch user details from HN API.
+		fetchUser(id)
+			.then(userDetails => this.setState(prevState => ({
+				userDetails
+			})))
+			.catch(e => console.warn(e));
 
 		fetchUserStories(id)
 			.then(userStories => this.setState(prevState => ({
@@ -26,12 +32,20 @@ class User extends Component {
 	}
 
 	render() {
-		const { userStories } = this.state;
+		const { userDetails, userStories } = this.state;
 		return (
 			<React.Fragment>
-				<h2>User name</h2>
-				<p>user details</p>
-				<h2>Posts</h2>
+				{userDetails ?
+					(
+						<React.Fragment>
+							<h2>{userDetails.id}</h2>
+							<p>user details</p>
+							<h2>Posts</h2> 
+						</React.Fragment>
+
+					) :
+					null
+				}
 				<StoryList stories={userStories} />
 			</React.Fragment>
 		);
