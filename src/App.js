@@ -12,9 +12,11 @@ class App extends React.Component {
       <div>
         <Nav />
         <Switch>
-          <Route exact path='/' component={Home} />
-          <Route path='/new' component={New} />
-          <Route path='/user' component={User} />
+          <div className='main-container' style={{maxWidth: '1000px', margin: '0 auto'}}>
+            <Route exact path='/' component={Home} />
+            <Route path='/new' component={New} />
+            <Route path='/user' component={User} />
+          </div>
         </Switch>
       </div>
     );
