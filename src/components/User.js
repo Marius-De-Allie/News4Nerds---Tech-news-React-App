@@ -15,19 +15,21 @@ class User extends Component {
 
 	componentDidMount() {
 		const { location } = this.props;
-		// Retrieve query string from url and parse into an object.
+		// 1. Retrieve query string from url and parse into an object.
 		const { id } = queryString.parse(location.search);
-		// Fetch user details from HN API.
+		// 2 .Fetch user details from HN API.
 		fetchUser(id)
-			.then(userDetails => this.setState(prevState => ({
-				userDetails
-			})))
-			.catch(e => console.warn(e));
-
-		fetchUserStories(id)
-			.then(userStories => this.setState(prevState => ({
-				userStories
-			})))
+			.then(userDetails => {
+				this.setState(prevState => ({
+					userDetails
+				}));
+				// 3. Fetch user's stories from HN.
+				fetchUserStories(userDetails.submitted)
+					.then(userStories => this.setState(prevState => ({
+						userStories
+					})))
+					.catch(e => console.warn(e));
+			})
 			.catch(e => console.warn(e));
 	}
 
@@ -39,7 +41,7 @@ class User extends Component {
 					(
 						<React.Fragment>
 							<h2>{userDetails.id}</h2>
-							<p>user details</p>
+							<p>{`joined on ${new Date(userDetails.created * 1000).toLocaleString()} has ${userDetails.karma.toLocaleString()} Karma`}</p>
 							<h2>Posts</h2> 
 						</React.Fragment>
 
