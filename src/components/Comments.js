@@ -22,15 +22,12 @@ class Comments extends Component {
 			.then(post => {
 				this.setState(prevState => ({
 					postDetails: post
-				}));
-				// fetch 50 most recent comments for the post.
-				fetchComments(post.kids)
-					.then(comments => this.setState(prevState => ({
-						comments
-					})))
-					.catch(e => console.warn(e));
+				}))
+
+			
 		})
 		.catch(e => console.warn(e));
+
 	}
 
 
@@ -41,6 +38,7 @@ class Comments extends Component {
 						{postDetails ? (
 							<React.Fragment>
 								<h2>{postDetails.title}</h2>
+								{JSON.stringify(postDetails.kids)}
 								<p>
 									by
 									<Link>
