@@ -4,12 +4,15 @@ import CommentItem from './CommentItem';
 
 const CommentsList = ({ comments }) => (
 		<div className='comments-list-container'>
-			{!comments ? 
+			{comments == null ? 
 				<p>Fetching comments...</p> :
 				(
-					<ul>
-						{comments.map(comment => <CommentItem key={comment.id} {...comment} />)}
-					</ul>
+					<React.Fragment>
+						<h2>Comments</h2>
+						<ul>
+							{comments.length === 0 ? <p>Story has no comments</p> : comments.map(comment => <CommentItem key={comment.id} {...comment} />)}
+						</ul>
+					</React.Fragment>
 				)
 			}
     </div>

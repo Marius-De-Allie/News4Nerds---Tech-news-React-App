@@ -24,6 +24,9 @@ class Comments extends Component {
 					postDetails: post
 				}))
 
+				fetchComments(post.kids)
+				.then(comments => this.setState({comments}))
+				.catch(e => console.warn(e))
 			
 		})
 		.catch(e => console.warn(e));
@@ -35,7 +38,7 @@ class Comments extends Component {
 		const { comments, postDetails } = this.state;
 			return (
 				<React.Fragment>
-						{postDetails ? (
+						{postDetails != null ? (
 							<React.Fragment>
 								<h2>{postDetails.title}</h2>
 								{JSON.stringify(postDetails.kids)}
@@ -46,7 +49,6 @@ class Comments extends Component {
 									</Link>
 									on {` ${new Date(postDetails.time * 1000).toLocaleString()} `}{`${postDetails.descendants} comments`} 
 								</p>
-								<h2>Comments</h2>
 							</React.Fragment>
 						) :
 						null

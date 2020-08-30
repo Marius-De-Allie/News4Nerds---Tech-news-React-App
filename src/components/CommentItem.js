@@ -1,9 +1,9 @@
 import React from 'react';
 
-const CommentItem = props => (
+const CommentItem = ({ by, text, time}) => (
     <li>
-			<p>Comment metadata</p>
-			<p>Comment body</p>
+			<p>{`by ${by} on ${new Date(time *1000).toLocaleString()}`}</p>
+			<p>{text}</p>
     </li>
 );
 
