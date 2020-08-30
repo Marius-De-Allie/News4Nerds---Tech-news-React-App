@@ -44,7 +44,12 @@ class Comments extends Component {
 								{JSON.stringify(postDetails.kids)}
 								<p>
 									by
-									<Link>
+									<Link
+										to={{
+											pathname: '/user',
+											search: `?id=${postDetails.by}`
+										}}
+									>
 										{` ${postDetails.by}`}
 									</Link>
 									on {` ${new Date(postDetails.time * 1000).toLocaleString()} `}{`${postDetails.descendants} comments`} 
