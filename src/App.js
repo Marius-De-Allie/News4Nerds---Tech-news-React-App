@@ -4,6 +4,7 @@ import Nav from './components/Nav';
 import Home from './components/Home';
 import New from './components/New';
 import User from './components/User';
+import Comments from './components/Comments';
 
 class App extends React.Component {
 
@@ -16,6 +17,7 @@ class App extends React.Component {
             <Route exact path='/' component={Home} />
             <Route path='/new' component={New} />
             <Route path='/user' component={User} />
+            <Route path='/post' component={Comments} />
           </div>
         </Switch>
       </div>
