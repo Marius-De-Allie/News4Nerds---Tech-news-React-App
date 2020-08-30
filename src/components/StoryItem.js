@@ -24,9 +24,10 @@ const StoryItem = ({ by, descendants, id, kids, score, time, title, type, url })
             on {`${new Date((time * 1000)).toLocaleString()},`}
             {descendants > 0 ? 
                 <Link
-                    // to={{
-                    //     pathname={}
-                    // }}
+                    to={{
+                        pathname: '/post',
+                        search: `?id=${id}`
+                    }}
                 >
                     {` ${descendants} `}
                 </Link> : 
