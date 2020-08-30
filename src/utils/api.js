@@ -79,8 +79,8 @@ const fetchComments = commentsArray => {
 		try {
 			const commentData = await fetchItem(comment);
 			return commentData;
-		} catch(error) {
-			console.log(error)
+		} catch(e) {
+			console.log(e)
 		}
 	});
 };
