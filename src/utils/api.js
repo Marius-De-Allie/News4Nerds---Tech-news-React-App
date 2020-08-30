@@ -70,8 +70,25 @@ const fetchUserStories = async(userSubmissions) => {
 	return userStories;
 };
 
+// Fetch array of comments from HN for specific post.
+const fetchComments = commentsArray => {
+	// 1. Return an array of the post's last 50 comment ids.
+	const comments = commentsArray.slice(null, 50);
+	// 2. Return an array of the post's last 50 comment objects.
+	return comments.forEach(async(comment) => {
+		try {
+			const commentData = await fetchItem(comment);
+			return commentData;
+		} catch(error) {
+			console.log(error)
+		}
+	});
+};
+
 export {
 	fetchStories as default,
 	fetchUserStories,
-	fetchUser
+	fetchUser,
+	fetchComments,
+	fetchItem
 }
