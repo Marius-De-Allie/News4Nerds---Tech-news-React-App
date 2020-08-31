@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
 import StoryList from './StoryList';
-import { fetchUserStories, fetchUser } from '../utils/api';
+import { fetchUserStory, fetchUser } from '../utils/api';
 
 class User extends Component {
 	constructor(props) {
@@ -27,6 +27,22 @@ class User extends Component {
 				}
 			}))
 		}
+		// Return an array with 1st 50 submissions from the specified user.
+		const userSubmissions = this.state.userDetails.submitted.slice(null, 50);
+		// Loop through array of user submissions.
+		for(let i =0; i < userSubmissions.length; i++) {
+			// if submission not yet in component state.
+			if(!this.state.userStories[userSubmissions[i]]) {
+				const story = await fetchUserStory();
+				this.setState(prevState => ({
+					userStories: {
+						...prevState.userStories,
+						[story.id]: {...story}
+					}
+				}))
+			}
+		}
+
 
 
 		// fetchUser(id)

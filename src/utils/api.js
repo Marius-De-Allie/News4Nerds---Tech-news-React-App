@@ -54,7 +54,6 @@ const fetchUser = userId => {
 
 // Fetch HN stories by a specific user.
 const fetchUserStory = async(storyId) => {
-	let userStories = [];
 	// 1. Fetch each submission item.
 		let item = await fetchItem(storyId);
 	// 4. check whether item is a story and if so, add to userStories array.
@@ -81,7 +80,7 @@ const fetchComments = async (commentsIds) => {
 
 export {
 	fetchStories as default,
-	fetchUserStories,
+	fetchUserStory,
 	fetchUser,
 	fetchComments,
 	fetchItem,
