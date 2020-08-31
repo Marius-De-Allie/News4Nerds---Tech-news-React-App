@@ -33,13 +33,17 @@ class User extends Component {
 		for(let i =0; i < userSubmissions.length; i++) {
 			// if submission not yet in component state.
 			if(!this.state.userStories[userSubmissions[i]]) {
-				const story = await fetchUserStory(userSubmissions[i]);
-				this.setState(prevState => ({
-					userStories: {
-						...prevState.userStories,
-						[story.id]: {...story}
-					}
-				}))
+				const item = await fetchUserStory(userSubmissions[i]);
+				// check whether fetched item is a story or not.
+				if(item.type === 'story') {
+					// If item is of type story, add it to component state.
+					this.setState(prevState => ({
+						userStories: {
+							...prevState.userStories,
+							[item.id]: {...item}
+						}
+					}))
+				}
 			}
 		}
 
@@ -64,7 +68,7 @@ class User extends Component {
 		const urlQueryString =  queryString.parse(this.props.location.search);
 		const { userDetails, userStories } = this.state;
 		const ids = Object.keys(userStories);
-		const stories = ids.map(id => userStories[id]);
+		const stories = ids.map(id => userStories[id]).sort((a, b) => b.time - a.time);
 		return (
 			<React.Fragment>
 				{userDetails ?

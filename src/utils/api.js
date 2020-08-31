@@ -55,11 +55,12 @@ const fetchUser = userId => {
 // Fetch HN stories by a specific user.
 const fetchUserStory = async(storyId) => {
 	// 1. Fetch each submission item.
-		let item = await fetchItem(storyId);
-	// 4. check whether item is a story and if so, add to userStories array.
-	if(item.type === 'story') {
+		const item = await fetchItem(storyId);
 		return item;
-	} 
+	// 4. check whether item is a story and if so, add to userStories array.
+	// if(item.type === 'story') {
+	// 	return item;
+	// } 
 }
 
 // Fetch array of comments from HN for specific post.
