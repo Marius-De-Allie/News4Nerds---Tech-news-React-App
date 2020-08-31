@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import StoryList from './StoryList';
-import fetchStories, { fetchStoryIds } from '../utils/api';
+import fetchStories, { fetchStoryIds, fetchItem } from '../utils/api';
 
 class Home extends Component {
 
@@ -14,9 +14,15 @@ class Home extends Component {
 
     async componentDidMount () {
         const storyIds = await fetchStoryIds('topstories');
-        storyIds.forEach(id => {
+        storyIds.forEach( async (id) => {
             if(!this.state.topStories[id]) {
-                // TODO call fetchStory
+                const story = await fetchItem(id);
+                this.setState(prevState => ({
+                    topStories: {
+                        ...prevState.topStories,
+                        [story.id]: {...story}
+                    }
+                }))
             }
         })
 
@@ -31,10 +37,13 @@ class Home extends Component {
 
     render() {
         const { topStories } = this.state;
+        const ids = Object.keys(topStories);
+        const stories = ids.map(id => topStories[id]);
+        console.log('STORIES', stories)
         return (
             <React.Fragment>
                 <h1>Top Stories</h1>
-                <StoryList stories={topStories} />
+                <StoryList stories={stories} />
             </React.Fragment>
         );
     }
