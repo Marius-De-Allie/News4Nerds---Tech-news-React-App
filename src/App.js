@@ -23,7 +23,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <ThemeContext.Provider>
+      <ThemeContext.Provider value={this.state}>
         <div>
           <Nav />
           <Switch>
