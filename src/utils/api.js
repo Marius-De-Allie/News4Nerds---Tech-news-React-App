@@ -89,5 +89,6 @@ export {
 	fetchUserStories,
 	fetchUser,
 	fetchComments,
-	fetchItem
+	fetchItem,
+	fetchStoryIds
 }
