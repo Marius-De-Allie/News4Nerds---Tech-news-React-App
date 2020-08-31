@@ -8,7 +8,7 @@ class User extends Component {
 		super(props);
 
 		this.state = {
-			userDetails: null,
+			userDetails: {},
 			userStories: {}
 		}
 	}
@@ -28,12 +28,12 @@ class User extends Component {
 			}))
 		}
 		// Return an array with 1st 50 submissions from the specified user.
-		const userSubmissions = this.state.userDetails.submitted.slice(null, 50);
+		const userSubmissions = this.state.userDetails[id].submitted.slice(null, 50);
 		// Loop through array of user submissions.
 		for(let i =0; i < userSubmissions.length; i++) {
 			// if submission not yet in component state.
 			if(!this.state.userStories[userSubmissions[i]]) {
-				const story = await fetchUserStory();
+				const story = await fetchUserStory(userSubmissions[i]);
 				this.setState(prevState => ({
 					userStories: {
 						...prevState.userStories,
@@ -61,21 +61,28 @@ class User extends Component {
 	}
 
 	render() {
+		const urlQueryString =  queryString.parse(this.props.location.search);
 		const { userDetails, userStories } = this.state;
+		const ids = Object.keys(userStories);
+		const stories = ids.map(id => userStories[id]);
 		return (
 			<React.Fragment>
 				{userDetails ?
 					(
 						<React.Fragment>
-							<h2>{userDetails.id}</h2>
-							<p>{`joined on ${new Date(userDetails.created * 1000).toLocaleString()} has ${userDetails.karma.toLocaleString()} Karma`}</p>
-							<h2>Posts</h2> 
+							{userDetails[urlQueryString.id] && (
+								<React.Fragment>
+									<h2>{userDetails.id}</h2>
+									<p>{`joined on ${new Date(userDetails[urlQueryString.id].created * 1000).toLocaleString()} has ${userDetails[urlQueryString.id].karma.toLocaleString()} Karma`}</p>
+									<h2>Posts</h2> 
+								</React.Fragment>
+							)}
 						</React.Fragment>
 
 					) :
 					null
 				}
-				<StoryList stories={userStories} />
+				<StoryList stories={stories} />
 			</React.Fragment>
 		);
 	}

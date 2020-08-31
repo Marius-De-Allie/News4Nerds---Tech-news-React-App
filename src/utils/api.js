@@ -59,9 +59,7 @@ const fetchUserStory = async(storyId) => {
 	// 4. check whether item is a story and if so, add to userStories array.
 	if(item.type === 'story') {
 		return item;
-	} else {
-		return null;
-	}
+	} 
 }
 
 // Fetch array of comments from HN for specific post.
