@@ -10,6 +10,7 @@ const Nav = () => (
                     <NavLink 
                         to='/' 
                         activeClassName='active'
+                        className='nav-links'
                         exact
                     >
                         Top
@@ -17,6 +18,7 @@ const Nav = () => (
                     <NavLink 
                         to='/new' 
                         activeClassName='active'
+                        className='nav-links'                        
                         exact
                     >
                         New

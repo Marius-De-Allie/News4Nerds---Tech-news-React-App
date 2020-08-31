@@ -25,10 +25,10 @@ class App extends React.Component {
     return (
       <ThemeContext.Provider value={this.state}>
         <div className={this.state.theme}>
-          <div>
+          <div className='container'>
             <Nav />
             <Switch>
-              <div className='main-container' style={{maxWidth: '1000px', margin: '0 auto'}}>
+              <div className='main-content-container' style={{maxWidth: '1000px', margin: '0 auto'}}>
                 <Route exact path='/' component={Home} />
                 <Route path='/new' component={New} />
                 <Route path='/user' component={User} />
