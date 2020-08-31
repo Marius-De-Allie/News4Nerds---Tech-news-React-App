@@ -14,7 +14,8 @@ class Home extends Component {
 
     async componentDidMount () {
         const storyIds = await fetchStoryIds('topstories');
-        storyIds.forEach( async (id) => {
+        console.log('TOP STORIES', storyIds)
+        storyIds.forEach( async(id) => {
             if(!this.state.topStories[id]) {
                 const story = await fetchItem(id);
                 this.setState(prevState => ({
@@ -39,7 +40,9 @@ class Home extends Component {
         const { topStories } = this.state;
         const ids = Object.keys(topStories);
         const stories = ids.map(id => topStories[id]);
-        console.log('STORIES', stories)
+
+        // console.log('STORIES', stories)
+        console.log('TOP STORIES MAN', topStories)
         return (
             <React.Fragment>
                 <h1>Top Stories</h1>
