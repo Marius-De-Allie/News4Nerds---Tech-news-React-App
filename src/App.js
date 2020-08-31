@@ -24,16 +24,18 @@ class App extends React.Component {
   render() {
     return (
       <ThemeContext.Provider value={this.state}>
-        <div>
-          <Nav />
-          <Switch>
-            <div className='main-container' style={{maxWidth: '1000px', margin: '0 auto'}}>
-              <Route exact path='/' component={Home} />
-              <Route path='/new' component={New} />
-              <Route path='/user' component={User} />
-              <Route path='/post' component={Comments} />
-            </div>
-          </Switch>
+        <div className={this.state.theme}>
+          <div>
+            <Nav />
+            <Switch>
+              <div className='main-container' style={{maxWidth: '1000px', margin: '0 auto'}}>
+                <Route exact path='/' component={Home} />
+                <Route path='/new' component={New} />
+                <Route path='/user' component={User} />
+                <Route path='/post' component={Comments} />
+              </div>
+            </Switch>
+          </div>
         </div>
       </ThemeContext.Provider>
     );
