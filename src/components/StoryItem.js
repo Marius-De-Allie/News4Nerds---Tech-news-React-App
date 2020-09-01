@@ -14,7 +14,7 @@ const StoryItem = ({ by, descendants, id, kids, score, time, title, type, url })
         </div>
         <div className='content'>
             <p className='description'>
-                {'👨‍💻Posted by'}
+                <span id='user-avatar'>{'👨‍💻'}</span><span>Posted by</span>
                 <Link
                     to={{
                         pathname: '/user',
