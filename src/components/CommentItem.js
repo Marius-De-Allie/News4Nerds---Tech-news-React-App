@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from  'react-router-dom';
 import parse from 'html-react-parser';
+import { FaUserAstronaut } from 'react-icons/fa';
 
 const CommentItem = ({ by, text, time}) => (
     <li className='comment'>
         {/* TODO add avatar*/}
-        <span className='avatar' style={{fontSize: '16px'}}>{`🙍‍♀️`}</span>
+        <span className='avatar' style={{fontSize: '16px'}}>
+            <FaUserAstronaut color='gold' size={26} />
+        </span>
         <div className='content'>
             <Link
                 className='author'
