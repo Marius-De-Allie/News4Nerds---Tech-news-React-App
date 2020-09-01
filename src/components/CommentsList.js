@@ -8,8 +8,8 @@ const CommentsList = ({ comments }) => (
 				<p>Fetching comments...</p> :
 				(
 					<React.Fragment>
-						<h2>Comments</h2>
-						<ul>
+						<h2 className='ui dividing header'>Comments</h2>
+						<ul className='ui comments'>
 							{comments.length === 0 ? <p>Story has no comments</p> : comments.map(comment => <CommentItem key={comment.id} {...comment} />)}
 						</ul>
 					</React.Fragment>

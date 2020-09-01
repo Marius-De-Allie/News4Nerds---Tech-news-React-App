@@ -39,22 +39,26 @@ class Comments extends Component {
 			return (
 				<React.Fragment>
 						{postDetails != null ? (
-							<React.Fragment>
-								<h2>{postDetails.title}</h2>
-								{JSON.stringify(postDetails.kids)}
-								<p>
-									by
-									<Link
-										to={{
-											pathname: '/user',
-											search: `?id=${postDetails.by}`
-										}}
-									>
-										{` ${postDetails.by}`}
-									</Link>
-									on {` ${new Date(postDetails.time * 1000).toLocaleString()} `}{`${postDetails.descendants} comments`} 
-								</p>
-							</React.Fragment>
+							<div className='ui fluid raised card'>
+								<div className='content'>
+									<h2>{postDetails.title}</h2>
+								</div>
+								<div className='content'>
+									{JSON.stringify(postDetails.kids)}
+									<p className='description'>
+										by
+										<Link
+											to={{
+												pathname: '/user',
+												search: `?id=${postDetails.by}`
+											}}
+										>
+											{` ${postDetails.by}`}
+										</Link>
+										on {` ${new Date(postDetails.time * 1000).toLocaleString()} `}{`${postDetails.descendants} comments`} 
+									</p>
+								</div>
+							</div>
 						) :
 						null
 					} 

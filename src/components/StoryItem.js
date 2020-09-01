@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 const StoryItem = ({ by, descendants, id, kids, score, time, title, type, url }) => (
     <li className='ui fluid raised card'>
-        {/* TODO add avatar/icon */}
         <div className='content'>
             <a 
                 className='header story-link'
