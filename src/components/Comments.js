@@ -9,28 +9,35 @@ class Comments extends Component {
 		super(props);
 
 		this.state = {
-			postDetails: null,
-			comments: null
+			postDetails: {},
+			comments: {}
 		}
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 		// retrieve post id value from url query string.
 		const { id } = queryString.parse(this.props.location.search);
 
-		fetchItem(id)
-			.then(post => {
+		const { postDetails, comments } = this.state;
+
+		if(!postDetails[id]) {
+			const post = await fetchItem(id);
 				this.setState(prevState => ({
-					postDetails: post
-				}))
+					postDetails: {
+						...prevState.postDetails,
+						[id]: {...post}
+					}
+				}));
 
-				fetchComments(post.kids)
-				.then(comments => this.setState({comments}))
-				.catch(e => console.warn(e))
-			
-		})
-		.catch(e => console.warn(e));
 
+				const commentIds = postDetails[id].kids.slice(null, 50);
+				for(let i =0; i < commentIds.length; i++) {
+					if(!comments[commentIds[i]]) {
+						// TODO call fetchComment fn.
+						// TODO set comments state equal to new comment, plus existing comments.
+					}
+				}
+		}
 	}
 
 
