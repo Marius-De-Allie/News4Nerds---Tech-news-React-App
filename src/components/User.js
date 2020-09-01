@@ -76,7 +76,7 @@ class User extends Component {
 						<React.Fragment>
 							{userDetails[urlQueryString.id] && (
 								<React.Fragment>
-									<h2>{userDetails.id}</h2>
+									<h1>{userDetails[urlQueryString.id].id}</h1>
 									<p>{`joined on ${new Date(userDetails[urlQueryString.id].created * 1000).toLocaleString()} has ${userDetails[urlQueryString.id].karma.toLocaleString()} Karma`}</p>
 									<h2>Posts</h2> 
 								</React.Fragment>

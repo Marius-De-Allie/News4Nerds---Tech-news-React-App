@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import StoryList from './StoryList';
-import fetchStories, { fetchStoryIds, fetchItem } from '../utils/api';
+import { fetchStoryIds, fetchItem } from '../utils/api';
+// theme context consumer.
+import ThemeContext from '../contexts/theme';
 
 class New extends Component {
     constructor(props) {
@@ -36,10 +38,14 @@ class New extends Component {
       const ids = Object.keys(newStories);
       const stories = ids.map(id => newStories[id]).sort((a, b) => b.time - a.time)
         return (
-          <React.Fragment>
-            <h1 className={`ui header header-${theme}`}>New Stories</h1>
-            <StoryList stories={stories} />
-          </React.Fragment>
+          <ThemeContext.Consumer>
+            {({ theme }) => (
+              <React.Fragment>
+                <h1 className={`ui header text-${theme}`}>New Stories</h1>
+                <StoryList stories={stories} />
+              </React.Fragment>
+            )}
+          </ThemeContext.Consumer>
         );
     }
 };

@@ -5,7 +5,7 @@ import StoryItem from './StoryItem';
 const StoryList = ( { stories }) => console.log(stories)||(
 
     <div className='story-list-container'>
-        {stories.length  < 49 ? <p>fetching stories...</p> :
+        {stories.length  === null ? <p>fetching stories...</p> :
             <ul>
                 {stories.map(story => 
                     <StoryItem key={story.id} {...story} />

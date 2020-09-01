@@ -48,7 +48,7 @@ class Home extends Component {
             <ThemeContext.Consumer>
                 {({ theme }) => (
                     <React.Fragment>
-                        <h1 className={`ui header header-${theme}`}>Top Stories</h1>
+                        <h1 className={`ui header text-${theme}`}>Top Stories</h1>
                         <StoryList stories={stories} />
                     </React.Fragment>
                 )}

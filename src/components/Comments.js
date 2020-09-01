@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import queryString from 'query-string';
 import { fetchItem} from '../utils/api';
 import CommentsList from './CommentsList';
+// Theme context consumer.
+import ThemeContext from '../contexts/theme';
 
 class Comments extends Component {
 	constructor(props) {
@@ -57,33 +59,37 @@ class Comments extends Component {
 		const ids = Object.keys(this.state.comments);
 		const comments = ids.map(id => this.state.comments[id]);
 			return (
-				<React.Fragment>
-						{postDetails[urlQuerystring.id] ? (
-							<div className='ui fluid raised card'>
-								<div className='content'>
-									<h2>{postDetails[urlQuerystring.id].title}</h2>
-								</div>
-								<div className='content'>
-									{JSON.stringify(postDetails[urlQuerystring.id].kids)}
-									<p className='description'>
-										by
-										<Link
-											to={{
-												pathname: '/user',
-												search: `?id=${postDetails[urlQuerystring.id].by}`
-											}}
-										>
-											{` ${postDetails[urlQuerystring.id].by} `}
-										</Link>
-										on {` ${new Date(postDetails[urlQuerystring.id].time * 1000).toLocaleString()} `}{`${postDetails[urlQuerystring.id].descendants} comments`} 
-									</p>
-								</div>
-							</div>
-						) :
-						null
-					} 
-						<CommentsList comments={comments} />
-				</React.Fragment>
+				<ThemeContext.Consumer>
+					{({ theme }) => (
+						<React.Fragment>
+								{postDetails[urlQuerystring.id] ? (
+									<div className={`ui fluid raised card bg-${theme}`}>
+										<div className='content'>
+											<h1 className={`text-${theme}`}>{postDetails[urlQuerystring.id].title}</h1>
+										</div>
+										<div className='content'>
+											{JSON.stringify(postDetails[urlQuerystring.id].kids)}
+											<p className='description'>
+												by
+												<Link
+													to={{
+														pathname: '/user',
+														search: `?id=${postDetails[urlQuerystring.id].by}`
+													}}
+												>
+													{` ${postDetails[urlQuerystring.id].by} `}
+												</Link>
+												on {` ${new Date(postDetails[urlQuerystring.id].time * 1000).toLocaleString()} `}{`${postDetails[urlQuerystring.id].descendants} comments`} 
+											</p>
+										</div>
+									</div>
+								) :
+								null
+							} 
+								<CommentsList comments={comments} />
+						</React.Fragment>
+					)}
+				</ThemeContext.Consumer>
 			);
 	}
 };

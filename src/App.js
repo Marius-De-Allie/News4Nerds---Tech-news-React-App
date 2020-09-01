@@ -12,7 +12,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      theme: 'light',
+      theme: 'dark',
       toggleTheme: () => {
         this.setState(prevState => ({
           theme: prevState.theme === 'light' ? 'dark' : 'light'
