@@ -37,6 +37,7 @@ class New extends Component {
       const stories = ids.map(id => newStories[id]).sort((a, b) => b.time - a.time)
         return (
           <React.Fragment>
+            <h1 className={`ui header header-${theme}`}>New Stories</h1>
             <StoryList stories={stories} />
           </React.Fragment>
         );
