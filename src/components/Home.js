@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import StoryList from './StoryList';
-import fetchStories, { fetchStoryIds, fetchItem } from '../utils/api';
+import { fetchStoryIds, fetchItem } from '../utils/api';
+import ThemeContext from '../contexts/theme';
 
 class Home extends Component {
 
@@ -44,10 +45,14 @@ class Home extends Component {
         // console.log('STORIES', stories)
         console.log('TOP STORIES MAN', topStories)
         return (
-            <React.Fragment>
-                <h1 className='ui header'>Top Stories</h1>
-                <StoryList stories={stories} />
-            </React.Fragment>
+            <ThemeContext.Consumer>
+                {({ theme }) => (
+                    <React.Fragment>
+                        <h1 className={`ui header bg-${theme === 'dark' ? 'dark' : ''}`}>Top Stories</h1>
+                        <StoryList stories={stories} />
+                    </React.Fragment>
+                )}
+            </ThemeContext.Consumer>
         );
     }
 
