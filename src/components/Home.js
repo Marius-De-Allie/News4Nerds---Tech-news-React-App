@@ -45,7 +45,7 @@ class Home extends Component {
         console.log('TOP STORIES MAN', topStories)
         return (
             <React.Fragment>
-                <h1>Top Stories</h1>
+                <h1 className='ui header'>Top Stories</h1>
                 <StoryList stories={stories} />
             </React.Fragment>
         );

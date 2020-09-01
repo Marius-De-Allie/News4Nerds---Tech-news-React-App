@@ -18,7 +18,7 @@ const CommentItem = ({ by, text, time}) => (
             <div className='metadata'>
                 <span>{`on ${new Date(time *1000).toLocaleString()}`}</span>
             </div>
-            <div className='text'>{parse(text)}</div>
+            <div className='text'>{parse(String(text))}</div>
         </div>
         <div className='ui divider'></div>
     </li>

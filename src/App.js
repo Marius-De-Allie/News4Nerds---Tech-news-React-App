@@ -25,7 +25,7 @@ class App extends React.Component {
     return (
       <ThemeContext.Provider value={this.state}>
         <div className={this.state.theme}>
-          <div className='container'>
+          <div className='ui container'>
             <Nav />
             <Switch>
               <div className='main-content-container' style={{maxWidth: '1000px', margin: '0 auto'}}>
