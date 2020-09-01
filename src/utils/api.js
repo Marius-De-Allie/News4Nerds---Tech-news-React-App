@@ -59,25 +59,10 @@ const fetchUserStory = async(storyId) => {
 		return item;
 }
 
-// Fetch array of comments from HN for specific post.
-const fetchComments = async (commentsIds) => {
-	let comments = [];
-	// 1. Return an array of the post's last 50 comment ids.
-	const commentsArray = commentsIds.slice(null, 50);
-
-	for(let i = 0; i < commentsArray.length; i++) {
-		const commentItem = await fetchItem(commentsArray[i]);
-		comments.push(commentItem);
-	
-	}
-	return comments;
-};
-
 export {
 	fetchStories as default,
 	fetchUserStory,
 	fetchUser,
-	fetchComments,
 	fetchItem,
 	fetchStoryIds
 }
