@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaAngleDoubleUp, FaStar } from 'react-icons/fa';
-import ThemeButtonWithHover from './ThemeButton';
+import ThemeButton from './ThemeButton';
+import TooltipWithHover from './Tooltip';
 import ThemeContext from '../contexts/theme';
 
 
@@ -29,7 +30,9 @@ const Nav = () => (
                         {` New`}
                     </NavLink>
                 </ul>
-                <ThemeButtonWithHover />
+                <TooltipWithHover tooltip='Switch theme dark\light'>
+                    <ThemeButton />
+                </TooltipWithHover>
             </nav>
         )}
     </ThemeContext.Consumer>
