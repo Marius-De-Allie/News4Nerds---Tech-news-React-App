@@ -1,18 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StoryItem from './StoryItem';
+import ThemeContext from '../contexts/theme';
 
-const StoryList = ( { stories }) => console.log(stories)||(
+const StoryList = ( { stories }) => (
+    <ThemeContext.Consumer>
+        {({ theme }) => (
+            <div className='story-list-container'>
+                {stories.length  < 49 ? <p className={`text-${theme}`}>fetching stories...</p> :
+                    <ul>
+                        {stories.map(story => 
+                            <StoryItem key={story.id} {...story} />
+                        )}
+                    </ul>
+                }
+            </div>
+        )}
+    </ThemeContext.Consumer>
 
-    <div className='story-list-container'>
-        {stories.length  === null ? <p>fetching stories...</p> :
-            <ul>
-                {stories.map(story => 
-                    <StoryItem key={story.id} {...story} />
-                )}
-            </ul>
-        }
-    </div>
 );
 
 // StoryList proptypes.
