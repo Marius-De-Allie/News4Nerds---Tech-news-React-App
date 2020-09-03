@@ -15,7 +15,7 @@ const CommentItem = ({ by, text, time}) => (
                 <div className={`content`}>
                     <Link
                         className={`author`}
-                        style={{color: theme === 'dark' ? 'blueviolet' : ''}}
+                        style={{color: theme === 'dark' ? '#0e7eed' : ''}}
                     >
                         {`by ${by} `}
                     </Link>

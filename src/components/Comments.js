@@ -68,8 +68,7 @@ class Comments extends Component {
 											<h1 className={`text-${theme}`}>{postDetails[urlQuerystring.id].title}</h1>
 										</div>
 										<div className='content'>
-											{JSON.stringify(postDetails[urlQuerystring.id].kids)}
-											<p className='description'>
+											<p className={`description text-${theme}`} id='comment-meta'>
 												by
 												<Link
 													to={{
