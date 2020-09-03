@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { FaAngleDoubleUp, FaStar } from 'react-icons/fa';
 import ThemeContext from '../contexts/theme';
 
 const Nav = () => (
@@ -13,15 +14,17 @@ const Nav = () => (
                         className={`nav-links text-${theme}`}
                         exact
                     >
-                        Top
+                    <FaAngleDoubleUp />
+                        {` Top`}
                     </NavLink>
                     <NavLink 
                         to='/new' 
-                        activeClassName='active'
+                        activeClassName='active '
                         className={`nav-links text-${theme}`}                   
                         exact
                     >
-                        New
+                    <FaStar />
+                        {` New`}
                     </NavLink>
                 </ul>
                 <button 
