@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 
 const withHover = (Component, propName = 'hovering') => {
   return class WithHover extends React.Component {
@@ -40,4 +39,4 @@ const withHover = (Component, propName = 'hovering') => {
   }
 };
 
-export default withRouter;
+export default withHover;

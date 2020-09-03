@@ -27,12 +27,7 @@ const Nav = () => (
                         {` New`}
                     </NavLink>
                 </ul>
-                <button 
-                    className='theme-btn'
-                    onClick={toggleTheme}
-                >
-                    {theme === 'light' ? '🔦' : '💡'}
-                </button>
+                
             </nav>
         )}
     </ThemeContext.Consumer>
