@@ -1,0 +1,144 @@
+* {
+  box-sizing: border-box;
+  // margin: 0;
+  // padding: 0;
+}
+
+html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 10px;
+}
+
+body {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .nav-items .nav-links {
+    margin-right: 1rem;
+    color: #1c2022;
+    &.active {
+      color: gold;
+    }
+  }
+}
+
+a {
+  text-decoration: none;
+  color: #0e7eed;
+  &:hover {
+    color: gold !important;
+  }
+}
+
+li {
+  list-style: none;
+}
+
+ul.ui.comments li.comment div.content {
+  a {
+    color: #0e7eed;
+  }
+}
+
+// Dark theme styling.
+.dark {
+  color: #dadada;
+  background-color: #1c2022;
+  min-height: 100%;
+  a {
+    color: #0e7eed;
+    // &:hover {
+    //   color: gold;
+    // }
+  }
+}
+
+ul.nav-items {
+  .nav-links.text-dark {
+    color: #dadada;
+  }
+  a.active {
+    color: gold !important;
+  }
+}
+
+
+.text-dark {
+  color: #dadada;
+}
+
+// Dark theme header text.
+h1.ui.header {
+  &.text-dark {
+    color: #dadada;
+  }
+}
+
+h2.ui.dividing.header {
+  &.text-dark {
+    color:  #dadada;
+  }
+}
+
+h1.text-dark {
+  color: #dadada;
+}
+
+p.description#comment-meta {
+  &.text-dark {
+    color: #dadada;
+  }
+}
+
+.content {
+  &.text-dark {
+    color: #dadada;
+  }
+}
+
+div.content p.description {
+  &.text-dark {
+    color: #dadada !important;
+  }
+
+}
+
+.ui.fluid.raised.card {
+  &.bg-dark {
+    background-color: #474745;
+    border: none;
+  }
+}
+
+div.ui.divider {
+  &.divider-dark {
+    background-color: #dadada;
+  }
+}
+
+
+// comment text styling.
+li.comment div.content {
+  font-size: 1.6rem;
+}
+
+#user-avatar {
+  font-size: 2.6rem;
+}
+
+
