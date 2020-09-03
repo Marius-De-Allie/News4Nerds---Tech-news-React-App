@@ -1,7 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaAngleDoubleUp, FaStar } from 'react-icons/fa';
+import ThemeButton from './ThemeButton';
 import ThemeContext from '../contexts/theme';
+
 
 const Nav = () => (
     <ThemeContext.Consumer>
@@ -27,7 +29,7 @@ const Nav = () => (
                         {` New`}
                     </NavLink>
                 </ul>
-                
+                <ThemeButton />
             </nav>
         )}
     </ThemeContext.Consumer>
