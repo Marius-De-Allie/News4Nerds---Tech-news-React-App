@@ -7,7 +7,7 @@ const StoryList = ( { stories }) => (
     <ThemeContext.Consumer>
         {({ theme }) => (
             <div className='story-list-container'>
-                {stories.length  < 49 ? <p className={`text-${theme}`}>fetching stories...</p> :
+                {stories == null ? <p className={`text-${theme}`}>fetching stories...</p> :
                     <ul>
                         {stories.map(story => 
                             <StoryItem key={story.id} {...story} />
