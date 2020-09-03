@@ -1,5 +1,7 @@
 import React from 'react';
 import ThemeContext from '../contexts/theme';
+// withHover HOC.
+import withHover from './withHover';
 
 const ThemeButton = () => (
   <ThemeContext.Consumer>
@@ -9,4 +11,4 @@ const ThemeButton = () => (
   </ThemeContext.Consumer>
 );
 
-export default ThemeButton;
+export default withHover(ThemeButton);
