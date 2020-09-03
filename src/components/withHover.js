@@ -31,9 +31,9 @@ const withHover = (Component, propName = 'hovering') => {
         ...this.props
       }
       return (
-        <React.Fragment>
+        <div onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
           <Component {...props} />
-        </React.Fragment>
+        </div>
       );
     }
   }
