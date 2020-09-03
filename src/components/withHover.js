@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const withHover = (Component, propName = 'hovering') => {
   return class WithHover extends React.Component {
@@ -37,6 +38,10 @@ const withHover = (Component, propName = 'hovering') => {
       );
     }
   }
+};
+
+withHover.propTypes = {
+  propName: PropTypes.string
 };
 
 export default withHover;
