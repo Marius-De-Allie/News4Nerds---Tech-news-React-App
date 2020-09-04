@@ -32,7 +32,7 @@ const Tooltip = ({ tooltip, children, hovering }) => (
 );
 
 Tooltip.propTypes = {
-  tooltip: PropTypes.string.isRequired;
+  tooltip: PropTypes.string.isRequired,
   hovering: PropTypes.bool.isRequired
 };
 
