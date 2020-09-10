@@ -1,11 +1,14 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Nav from './components/Nav';
-import Home from './components/Home';
-import New from './components/New';
-import User from './components/User';
-import Comments from './components/Comments';
+import Loading from './components/Loading';
 import ThemeContext from './contexts/theme';
+
+// Dynamic imports.
+const LazyHome = React.lazy(() => import('./components/Home'));
+const LazyNew = React.lazy(() => import('./components/New'));
+const LazyUser = React.lazy(() => import('./components/User'));
+const LazyComments = React.lazy(() => import('./components/Comments'));
 
 class App extends React.Component {
   constructor(props) {
@@ -27,14 +30,16 @@ class App extends React.Component {
         <div className={this.state.theme}>
           <div className='ui container'>
             <Nav />
-            <Switch>
-              <div className='main-content-container' style={{maxWidth: '1000px', margin: '0 auto'}}>
-                <Route exact path='/' component={Home} />
-                <Route path='/new' component={New} />
-                <Route path='/user' component={User} />
-                <Route path='/post' component={Comments} />
-              </div>
-            </Switch>
+            <React.Suspense fallback={Loading}>
+              <Switch>
+                <div className='main-content-container' style={{maxWidth: '1000px', margin: '0 auto'}}>
+                  <Route exact path='/' component={LazyHome} />
+                  <Route path='/new' component={LazyNew} />
+                  <Route path='/user' component={LazyUser} />
+                  <Route path='/post' component={LazyComments} />
+                </div>
+              </Switch>
+            </React.Suspense>
           </div>
         </div>
       </ThemeContext.Provider>
