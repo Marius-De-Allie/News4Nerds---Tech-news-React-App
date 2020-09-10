@@ -8,7 +8,7 @@ const StoryList = ({ stories }) => (
     <ThemeContext.Consumer>
         {({ theme }) => (
             <div className='story-list-container'>
-                {stories.length < 50 ? <Loading className={`text-${theme}`} text='Fetching Stories' />:
+                {stories.length < 0 ? <Loading className={`text-${theme}`} text='Fetching Stories' />:
                     <ul>
                         {stories.map(story => 
                             <StoryItem key={story.id} {...story} />
