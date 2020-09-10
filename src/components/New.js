@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import StoryList from './StoryList';
 import { fetchStoryIds, fetchItem } from '../utils/api';
 // theme context consumer.
@@ -6,6 +6,7 @@ import ThemeContext from '../contexts/theme';
 
 const New = () => {
   const [newStories, setNewStories] = useState({});
+  const theme = useContext(ThemeContext);
 
   useEffect(() => {
       (async() => {
@@ -27,14 +28,10 @@ const New = () => {
   const stories = ids.map(id => newStories[id]).sort((a, b) => b.time - a.time);
 
   return (
-    <ThemeContext.Consumer>
-      {({ theme }) => (
-        <React.Fragment>
-          <h1 className={`ui header text-${theme}`}>New Stories</h1>
-          <StoryList stories={stories} />
-        </React.Fragment>
-      )}
-    </ThemeContext.Consumer>
+      <React.Fragment>
+        <h1 className={`ui header text-${theme}`}>New Stories</h1>
+        <StoryList stories={stories} />
+      </React.Fragment>
   );
 };
 
