@@ -4,7 +4,7 @@ import StoryItem from './StoryItem';
 import ThemeContext from '../contexts/theme';
 import Loading from './Loading';
 
-const StoryList = ( { stories }) => (
+const StoryList = ({ stories }) => (
     <ThemeContext.Consumer>
         {({ theme }) => (
             <div className='story-list-container'>

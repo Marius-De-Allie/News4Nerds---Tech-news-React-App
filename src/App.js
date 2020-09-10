@@ -45,6 +45,6 @@ class App extends React.Component {
       </ThemeContext.Provider>
     );
   }
-}
+};
 
 export default App;

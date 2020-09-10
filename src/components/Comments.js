@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import queryString from 'query-string';
 import { fetchItem} from '../utils/api';
-import CommentsList from './CommentsList';
 // Theme context consumer.
 import ThemeContext from '../contexts/theme';
+
+// Dynamic imports.
+const LazyCommentsList = React.lazy(() => import('./CommentsList'));
 
 class Comments extends Component {
 	constructor(props) {
@@ -85,7 +87,7 @@ class Comments extends Component {
 								) :
 								null
 							} 
-								<CommentsList comments={comments} />
+								<LazyCommentsList comments={comments} />
 						</React.Fragment>
 					)}
 				</ThemeContext.Consumer>
