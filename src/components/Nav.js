@@ -6,7 +6,7 @@ import TooltipWithHover from './Tooltip';
 import ThemeContext from '../contexts/theme';
 
 
-const Nav = () => {
+const Nav = ({ toggleTheme }) => {
     const theme = useContext(ThemeContext);
 
     return (
@@ -32,7 +32,7 @@ const Nav = () => {
                 </NavLink>
             </ul>
             <TooltipWithHover tooltip='Switch theme dark\light'>
-                <ThemeButton />
+                <ThemeButton toggleTheme={toggleTheme} />
             </TooltipWithHover>
         </nav>
     );
