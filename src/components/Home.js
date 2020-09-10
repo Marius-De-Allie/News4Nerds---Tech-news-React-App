@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import StoryList from './StoryList';
 import { fetchStoryIds, fetchItem } from '../utils/api';
 import ThemeContext from '../contexts/theme';
 
 const Home = () => {
     const [topStories, setTopStories] = useState({});
+    const theme = useContext(ThemeContext);
 
-    const ids = Object.keys(topStories);
-    const stories = ids.map(id => topStories[id]);
-
+    
     useEffect(() => {
         (async() => {
             const storyIds = await fetchStoryIds('topstories');
@@ -21,19 +20,22 @@ const Home = () => {
                     }));
                 }
             });
-
+            
         })();
     }, [topStories]);
 
+    // Convert stories objects to an array of stories.
+    const storiesToArray = () => {
+        const ids = Object.keys(topStories);
+        const stories = ids.map(id => topStories[id]);
+        return stories;
+    };
+
     return (
-        <ThemeContext.Consumer>
-            {({ theme }) => (
-                <React.Fragment>
-                    <h1 className={`ui header text-${theme}`}>Top 50 Stories</h1>
-                    <StoryList stories={stories} />
-                </React.Fragment>
-            )}
-        </ThemeContext.Consumer>
+        <React.Fragment>
+            <h1 className={`ui header text-${theme}`}>Top 50 Stories</h1>
+            <StoryList  stories={storiesToArray()} />
+        </React.Fragment>
     );
 }
 // class Home extends Component {
