@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import queryString from 'query-string';
 import { fetchItem} from '../utils/api';
@@ -43,6 +43,8 @@ const Comments = ({ location }) => {
 		error: null
 	});
 
+	const theme = useContext(ThemeContext);
+
 	// retrieve post id value from url query string.
 	const { id } = queryString.parse(location.search);
 
@@ -78,8 +80,6 @@ const Comments = ({ location }) => {
 		const comments = ids.map(el => state.comments[el]);
 
 	return (
-		<ThemeContext.Consumer>
-			{({ theme }) => (
 				<React.Fragment>
 						{state.postDetails[id] ? (
 							<div className={`ui fluid raised card bg-${theme}`}>
@@ -106,8 +106,6 @@ const Comments = ({ location }) => {
 					} 
 						<LazyCommentsList comments={comments} />
 				</React.Fragment>
-			)}
-		</ThemeContext.Consumer>
 	);
 };
 
