@@ -18,7 +18,7 @@ const Loading = ({ text, speed }) => {
       }, speed);
 
       return clearInterval(id.current)
-    }, [content]);
+    }, [content, speed, text]);
 
     return (
       <Loader>
