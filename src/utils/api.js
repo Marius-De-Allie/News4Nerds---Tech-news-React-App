@@ -59,10 +59,28 @@ const fetchUserStory = async(storyId) => {
 		return item;
 }
 
+const fetchUserStories = async(storyIdsArray, currentStories) => {
+	let stories = {};
+	for(let i = 0; i < storyIdsArray.length; i++) {
+		let storyId = storyIdsArray[i];
+		if(!currentStories[storyId]) {
+			const story = await fetchItem(storyId);
+			if(story.type === 'story') {
+				stories = {
+					...stories,
+					[story.id]: story
+				}
+			}
+		}
+	}
+	return stories;
+};
+
 export {
 	fetchStories as default,
 	fetchUserStory,
 	fetchUser,
 	fetchItem,
-	fetchStoryIds
+	fetchStoryIds,
+	fetchUserStories
 }

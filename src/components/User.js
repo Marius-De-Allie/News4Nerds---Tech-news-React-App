@@ -1,48 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import queryString from 'query-string';
 import StoryList from './StoryList';
-import Loading from './Loading';
-import { fetchUser, fetchItem } from '../utils/api';
+import { fetchUser, fetchItem, fetchUserStories } from '../utils/api';
 
 const User = ({ location }) => {
 	const [userDetails, setUserDetails] = useState({});
 	const [userStories, setUserStories] = useState({});
 
+	// Retrieve query string from url and parse into an object.
 	const { id } = queryString.parse(location.search);
 
 	useEffect(() => {
 		(async() => {
-			// 1. Retrieve query string from url and parse into an object.
-			// 2 .Fetch user details from HN API.
+			// Fetch user details from HN.
 			if(!userDetails[id]) {
 				const user = await fetchUser(id);
 				setUserDetails(userDetails => ({
 					...userDetails,
 					[user.id]: {...user}
 				}));
-	
-				// Return an array with 1st 50 submissions from the specified user.
-				if(userDetails[id]) {
-					const userSubmissions = userDetails[id].submitted.slice(null, 50);
-					// Loop through array of user submissions.
-					for(let i = 0; i < userSubmissions.length; i++) {
-						// if submission not yet in component state.
-						// if(!state.userStories[userSubmissions[i]]) {
-							const item = await fetchItem(userSubmissions[i]);
-							// check whether fetched item is a story or not.
-							// if(item.type === 'story') {
-								// If item is of type story, add it to component state.
-								setUserStories(stories => ({
-									...stories,
-									[item.id]: {...item}
-								}));
-							// }
-						// }
-					}
+				if(!userDetails[id]) {
+					// Fetch user's stories from HN.
+					const stories = await fetchUserStories(user.submitted.slice(null, 50), userStories);
+					setUserStories(userStories => ({...userStories, ...stories}))
 				}
 			}
 		})();
-	}, [id, userDetails]);
+	}, [id, userDetails, userStories]);
 
 	const urlQueryString =  queryString.parse(location.search);
 	const ids = Object.keys(userStories);
