@@ -73,7 +73,7 @@ const Comments = ({ location }) => {
 					console.warn(e);
 				})
 		}
-	}, [id]);
+	}, [id, state]);
 
 		// const urlQuerystring = queryString.parse(this.props.location.search);
 		const ids = Object.keys(state.comments);
