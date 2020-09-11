@@ -6,6 +6,7 @@ import withHover from './withHover';
 const Container = styled.div`
   position: relative;
   display: flex;
+  z-index: 1;
 `;
 
 const TooltipItem = styled.div`
