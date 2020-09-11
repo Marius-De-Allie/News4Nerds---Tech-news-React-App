@@ -4,12 +4,12 @@ import StoryItem from './StoryItem';
 import ThemeContext from '../contexts/theme';
 import Loading from './Loading';
 
-const StoryList = ({ stories }) => {
+const StoryList = ({ stories, itemCount }) => {
     const theme = useContext(ThemeContext);
 
     return (
         <div className='story-list-container'>
-            {stories.length < 0 ? <Loading className={`text-${theme}`} text='Fetching Stories' />:
+            {stories.length < itemCount ? <Loading className={`text-${theme}`} text='Fetching Stories' />:
                 <ul>
                     {stories.map(story => 
                         <StoryItem key={story.id} {...story} />
@@ -20,9 +20,15 @@ const StoryList = ({ stories }) => {
     );
 };
 
+
 // StoryList proptypes.
 StoryList.propTypes = {
-    stories: PropTypes.array.isRequired
+    stories: PropTypes.array.isRequired,
+    itemCount: PropTypes.number
+};
+
+StoryList.defaultProps = {
+    itemCount: 50
 };
 
 export default StoryList;

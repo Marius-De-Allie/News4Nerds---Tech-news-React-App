@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import queryString from 'query-string';
 import StoryList from './StoryList';
+import Loading from './Loading';
 import { fetchUser, fetchItem } from '../utils/api';
 
 const User = ({ location }) => {
@@ -65,7 +66,7 @@ const User = ({ location }) => {
 				) :
 				null
 			}
-			<StoryList stories={stories} />
+			<StoryList stories={stories} itemCount={Object.keys(userStories).length} />
 		</React.Fragment>
 	);
 };

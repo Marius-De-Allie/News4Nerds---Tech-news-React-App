@@ -34,7 +34,7 @@ const Home = () => {
     return (
         <React.Fragment>
             <h1 className={`ui header text-${theme}`}>Top 50 Stories</h1>
-            <StoryList  stories={storiesToArray()} />
+            <StoryList stories={storiesToArray()} />
         </React.Fragment>
     );
 }
