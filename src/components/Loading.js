@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -6,40 +6,58 @@ const Loader = styled.p`
   text-align: center;
 `;
 
-class Loading extends React.Component {
-  constructor(props) {
-    super(props);
+const Loading = ({ text, speed }) => {
+  const [content, setContent] = useState(text);
+  const id = useRef(null);
 
-    this.state = {
-      content: props.text
-    }
-  }
+    useEffect(() => {
+      id.current = setInterval(() => {
+        content === `${text}...` 
+        ? setContent(text) 
+        : setContent(content => `${content}.`);
+      }, speed);
 
-  componentDidMount() {
-    const { speed, text } = this.props;
+      return clearInterval(id.current)
+    }, [content]);
 
-    this.interval = window.setInterval(() => {
-      this.state.content === text +'...' ? 
-      this.setState({content: text}) :
-      this.setState(prevState => ({
-        content: prevState.content + '.'
-      }))
-    }, speed);
-  }
-
-  componentWillUnmount() {
-    window.clearInterval(this.interval)
-  }
-
-  render() {
-    const { content } = this.state;
     return (
       <Loader>
         {content}
       </Loader>
     );
-  }
 };
+
+// class Loading extends React.Component {
+//   constructor(props) {
+//     super(props);
+
+//     this.state = {
+//       content: props.text
+//     }
+//   }
+
+//   componentDidMount() {
+//     const { speed, text } = this.props;
+
+//     this.interval = window.setInterval(() => {
+//       this.state.content === text +'...' ? 
+//       this.setState({content: text}) :
+//       this.setState(prevState => ({
+//         content: prevState.content + '.'
+//       }))
+//     }, speed);
+//   }
+
+//   componentWillUnmount() {
+//     window.clearInterval(this.interval)
+//   }
+
+//   render() {
+//     const { content } = this.state;
+//     return (
+//     );
+//   }
+// };
 
 Loading.propTypes = {
   text: PropTypes.string.isRequired,
