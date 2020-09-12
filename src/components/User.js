@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import queryString from 'query-string';
 import StoryList from './StoryList';
 import Loading from './Loading';
+import ThemeContext from '../contexts/theme';
 import { fetchUser, fetchItem, fetchUserStories } from '../utils/api';
 
 const User = ({ location }) => {
 	const [userDetails, setUserDetails] = useState({});
 	const [userStories, setUserStories] = useState({});
 	const [loadingStories, setLoadingStories] = useState(true);
+	const theme = useContext(ThemeContext);
 
 	// Retrieve query string from url and parse into an object.
 	const { id } = queryString.parse(location.search);
@@ -50,7 +52,7 @@ const User = ({ location }) => {
 	
 	const renderStoryList = () => {
 		return loadingStories 
-			? <Loading className={`text-`} text='Fetching stories' /> 
+			? <Loading className={`text-${theme}`} text='Fetching stories' /> 
 			: <StoryList stories={stories} />
 	};
 
