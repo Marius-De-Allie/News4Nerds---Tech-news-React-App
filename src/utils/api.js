@@ -23,7 +23,7 @@ const fetchStoryIds = endpoint => {
 };
 
 // Fetch array of story objects.
-const fetchStories = async (endpoint, storyIdsArray, currentStories) => {
+const fetchStories = async (storyIdsArray, currentStories) => {
 	let stories = {};
 	try {
 		// 2. Loop over ids array and add each corresponding item to the stories array.
