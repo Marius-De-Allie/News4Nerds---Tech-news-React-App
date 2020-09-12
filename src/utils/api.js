@@ -23,15 +23,19 @@ const fetchStoryIds = endpoint => {
 };
 
 // Fetch array of story objects.
-const fetchStories = async (endpoint) => {
-	let stories = [];
+const fetchStories = async (endpoint, storyIdsArray, currentStories) => {
+	let stories = {};
 	try {
-		// 1. Get list of top 50 story ids from HN.
-		const ids = await fetchStoryIds(endpoint);
 		// 2. Loop over ids array and add each corresponding item to the stories array.
-		for(let i = 0; i < ids.length; i++) {
-			let item = await fetchItem(ids[i]);
-			stories.push(item);
+		for(let i = 0; i < storyIdsArray.length; i++) {
+			let id = storyIdsArray[i];
+			if(!currentStories[id]) {
+				let item = await fetchItem(id);
+				stories = {
+					...stories,
+					[item.id]: item
+				};
+			}
 		}
 	} catch {
 		throw new Error('Unable to fetch stories')

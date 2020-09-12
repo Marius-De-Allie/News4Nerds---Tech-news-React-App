@@ -22,9 +22,10 @@ const Home = () => {
                             [story.id]: {...story}
                         }));
     
-                        setLoadingStories(false);
                     }
                 });
+                setLoadingStories(false);
+
             } catch(e) {
                 console.warn(e);
             };
@@ -39,14 +40,13 @@ const Home = () => {
     };
 
     const renderUI = () => {
-        let ui;
-        if(loadingStories) {
-            ui = <Loading text='Fetching top stories' />;
-        }
+        // if(loadingStories ===true) {
+        //     ui = <Loading text='Fetching top stories' />;
+        // }
 
-        ui = <StoryList stories={storiesToArray()} />
+        // ui = <StoryList stories={storiesToArray()} />
 
-        return ui;
+        return loadingStories ? <Loading className={`text-${theme}`} text='Fetching top stories' /> : <StoryList stories={storiesToArray()} />
     }
 
     return (

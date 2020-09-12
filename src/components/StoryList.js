@@ -9,13 +9,13 @@ const StoryList = ({ stories, itemCount }) => {
 
     return (
         <div className='story-list-container'>
-            {stories.length < itemCount ? <Loading className={`text-${theme}`} text='Fetching Stories' />:
+            
                 <ul>
                     {stories.map(story => 
                         <StoryItem key={story.id} {...story} />
                     )}
                 </ul>
-            }
+            
         </div>
     );
 };
