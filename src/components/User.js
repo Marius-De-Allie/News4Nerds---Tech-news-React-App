@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import queryString from 'query-string';
 import StoryList from './StoryList';
+import Loading from './Loading';
 import { fetchUser, fetchItem, fetchUserStories } from '../utils/api';
 
 const User = ({ location }) => {
@@ -16,29 +17,28 @@ const User = ({ location }) => {
 			// Fetch user details from HN.
 			if(!userDetails[id]) {
 				try {
-
+					const user = await fetchUser(id);
+					setUserDetails(userDetails => ({
+						...userDetails,
+						[user.id]: {...user}
+					}));
+					if(!userDetails[id]) {
+						// Fetch user's stories from HN.
+						user.submitted.slice(null, 50).forEach(async(story) => {
+							if(!userStories[story]) {
+								const item = await fetchItem(story);
+								if(loadingStories) {
+									setLoadingStories(false);
+								}
+								setUserStories(userStories => ({
+									...userStories,
+									[item.id]: item
+								}))
+							}
+						})
+					}
 				} catch(e) {
 					console.warn(e);
-				}
-				const user = await fetchUser(id);
-				setUserDetails(userDetails => ({
-					...userDetails,
-					[user.id]: {...user}
-				}));
-				if(!userDetails[id]) {
-					// Fetch user's stories from HN.
-					user.submitted.slice(null, 50).forEach(async(story) => {
-						if(!userStories[story]) {
-							const item = await fetchItem(story);
-							if(loadingStories) {
-								setLoadingStories(false);
-							}
-							setUserStories(userStories => ({
-								...userStories,
-								[item.id]: item
-							}))
-						}
-					})
 				}
 			}
 		})();
@@ -47,6 +47,12 @@ const User = ({ location }) => {
 	const urlQueryString =  queryString.parse(location.search);
 	const ids = Object.keys(userStories);
 	const stories = ids.map(id => userStories[id]).sort((a, b) => b.time - a.time);
+	
+	const renderStoryList = () => {
+		return loadingStories 
+			? <Loading className={`text-`} text='Fetching stories' /> 
+			: <StoryList stories={stories} />
+	};
 
 	return (
 		<React.Fragment>
@@ -65,7 +71,7 @@ const User = ({ location }) => {
 				) :
 				null
 			}
-			<StoryList stories={stories} />
+			{renderStoryList()}
 		</React.Fragment>
 	);
 };
