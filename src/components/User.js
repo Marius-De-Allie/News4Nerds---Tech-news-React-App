@@ -6,6 +6,7 @@ import { fetchUser, fetchItem, fetchUserStories } from '../utils/api';
 const User = ({ location }) => {
 	const [userDetails, setUserDetails] = useState({});
 	const [userStories, setUserStories] = useState({});
+	const [loadingStories, setLoadingStories] = useState(true);
 
 	// Retrieve query string from url and parse into an object.
 	const { id } = queryString.parse(location.search);
@@ -14,6 +15,11 @@ const User = ({ location }) => {
 		(async() => {
 			// Fetch user details from HN.
 			if(!userDetails[id]) {
+				try {
+
+				} catch(e) {
+					console.warn(e);
+				}
 				const user = await fetchUser(id);
 				setUserDetails(userDetails => ({
 					...userDetails,
@@ -21,8 +27,18 @@ const User = ({ location }) => {
 				}));
 				if(!userDetails[id]) {
 					// Fetch user's stories from HN.
-					const stories = await fetchUserStories(user.submitted.slice(null, 50), userStories);
-					setUserStories(userStories => ({...userStories, ...stories}))
+					user.submitted.slice(null, 50).forEach(async(story) => {
+						if(!userStories[story]) {
+							const item = await fetchItem(story);
+							if(loadingStories) {
+								setLoadingStories(false);
+							}
+							setUserStories(userStories => ({
+								...userStories,
+								[item.id]: item
+							}))
+						}
+					})
 				}
 			}
 		})();
@@ -34,7 +50,6 @@ const User = ({ location }) => {
 
 	return (
 		<React.Fragment>
-			{JSON.stringify(userDetails)}
 			{userDetails[urlQueryString.id] ?
 				(
 					<React.Fragment>
@@ -50,7 +65,7 @@ const User = ({ location }) => {
 				) :
 				null
 			}
-			<StoryList stories={stories} itemCount={Object.keys(userStories).length} />
+			<StoryList stories={stories} />
 		</React.Fragment>
 	);
 };
