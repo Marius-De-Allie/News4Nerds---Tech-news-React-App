@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StoryItem from './StoryItem';
 
-const StoryList = ({ stories, itemCount }) => {
+const StoryList = ({ stories }) => {
 
     return (
         <div className='story-list-container'>
@@ -20,10 +20,6 @@ const StoryList = ({ stories, itemCount }) => {
 StoryList.propTypes = {
     stories: PropTypes.array.isRequired,
     itemCount: PropTypes.number
-};
-
-StoryList.defaultProps = {
-    itemCount: 50
 };
 
 export default StoryList;
