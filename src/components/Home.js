@@ -1,26 +1,33 @@
 import React, { useState, useEffect, useContext } from 'react';
 import StoryList from './StoryList';
+import Loading from './Loading';
 import { fetchStoryIds, fetchItem } from '../utils/api';
 import ThemeContext from '../contexts/theme';
 
 const Home = () => {
     const [topStories, setTopStories] = useState({});
+    const [loadingStories, setLoadingStories] = useState(true);
     const theme = useContext(ThemeContext);
 
     
     useEffect(() => {
         (async() => {
-            const storyIds = await fetchStoryIds('topstories');
-            storyIds.forEach(async(id) => {
-                if(!topStories[id]) {
-                    const story = await fetchItem(id);
-                    setTopStories((topStories) => ({
-                        ...topStories,
-                        [story.id]: {...story}
-                    }));
-                }
-            });
-            
+            try {
+                const storyIds = await fetchStoryIds('topstories');
+                storyIds.forEach(async(id) => {
+                    if(!topStories[id]) {
+                        const story = await fetchItem(id);
+                        setTopStories((topStories) => ({
+                            ...topStories,
+                            [story.id]: {...story}
+                        }));
+    
+                        setLoadingStories(false);
+                    }
+                });
+            } catch(e) {
+                console.warn(e);
+            };
         })();
     }, [topStories]);
 
@@ -31,10 +38,21 @@ const Home = () => {
         return stories;
     };
 
+    const renderUI = () => {
+        let ui;
+        if(loadingStories) {
+            ui = <Loading text='Fetching top stories' />;
+        }
+
+        ui = <StoryList stories={storiesToArray()} />
+
+        return ui;
+    }
+
     return (
         <React.Fragment>
             <h1 className={`ui header text-${theme}`}>Top 50 Stories</h1>
-            <StoryList stories={storiesToArray()} />
+            {renderUI()}
         </React.Fragment>
     );
 }
