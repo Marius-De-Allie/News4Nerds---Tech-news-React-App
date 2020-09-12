@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import StoryList from './StoryList';
 import Loading from './Loading';
-import { fetchStoryIds, fetchStories } from '../utils/api';
+import { fetchStoryIds, fetchItem } from '../utils/api';
 import ThemeContext from '../contexts/theme';
 
 const Home = () => {
@@ -14,9 +14,18 @@ const Home = () => {
         (async() => {
             try {
                 const storyIds = await fetchStoryIds('topstories');
-                const stories = await fetchStories(storyIds, topStories);
-                setTopStories(topStories => ({...topStories, ...stories}));
-                setLoadingStories(false);
+                storyIds.forEach(async(id) => {
+                    if(!topStories[id]) {
+                        const story = await fetchItem(id);
+                        setTopStories((topStories) => ({
+                            ...topStories,
+                            [story.id]: {...story}
+                        }));
+                        if(loadingStories) {
+                            setLoadingStories(false);
+                        }
+                    }
+                });
 
             } catch(e) {
                 console.warn(e);
