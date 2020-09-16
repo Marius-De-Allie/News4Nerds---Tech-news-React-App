@@ -55,11 +55,16 @@ ul.ui.comments li.comment div.content {
   }
 }
 
+div.story-list-container {
+  padding-bottom: 2rem;
+}
+
 // Dark theme styling.
 .dark {
   color: #dadada;
   background-color: #1c2022;
-  min-height: 100%;
+  // min-height: 100%;
+  min-height: 100vh;
   a {
     color: #0e7eed;
     // &:hover {

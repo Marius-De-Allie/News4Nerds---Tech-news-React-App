@@ -11,7 +11,7 @@ const fetchItem = id => {
 		})
 };
 
-// Fetch top or new (based on endpoint arg passedin) stories from hacker news API.
+// Fetch top or new (based on endpoint arg passed in) stories from hacker news API.
 const fetchStoryIds = endpoint => {
 	return fetch(`${baseUrl}${endpoint}.json`)
 		.then(res => res.json())
