@@ -1,25 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import StoryItem from './StoryItem';
 
-const StoryList = ({ stories }) => {
+const StoryList = () => {
+    const [stories, setStories] = useState(null);
+    const [loadingStories, setLoadingStories] = useState(true);
+
 
     return (
-        <div className='story-list-container'>
-            <ul>
-                {stories.map(story => 
-                    <StoryItem key={story.id} {...story} />
-                )}
-            </ul>
-        </div>
+        <React.Fragment>
+            <h1 className={`ui header text-${theme}`}>Top 50 Stories</h1>
+            {loadingStories 
+                ? <p>Loading</p>
+                : (
+                    <div className='story-list-container'>
+                        <ul>
+                            {stories.map(story => 
+                                <StoryItem key={story.id} {...story} />
+                            )}
+                        </ul>
+                    </div>
+                )
+            }
+        </React.Fragment>
     );
 };
 
 
 // StoryList proptypes.
 StoryList.propTypes = {
-    stories: PropTypes.array.isRequired,
-    itemCount: PropTypes.number
+    // stories: PropTypes.array.isRequired,
+    // itemCount: PropTypes.number
 };
 
 export default StoryList;
