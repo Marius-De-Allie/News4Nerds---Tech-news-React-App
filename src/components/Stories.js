@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import StoryItem from './StoryItem';
+import ThemeContext from '../contexts/theme';
 
 const Stories = () => {
     const [stories, setStories] = useState(null);
     const [loadingStories, setLoadingStories] = useState(true);
+    const theme = useContext(ThemeContext);
 
 
     return (

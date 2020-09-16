@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import StoryList from './StoryList';
+import StoryList from './Stories';
 import Loading from './Loading';
 import { fetchStoryIds, fetchItem } from '../utils/api';
 // theme context.
