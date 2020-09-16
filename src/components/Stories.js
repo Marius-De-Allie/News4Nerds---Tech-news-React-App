@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import StoryItem from './StoryItem';
 import ThemeContext from '../contexts/theme';
 
-const Stories = () => {
+const Stories = ({ type, header }) => {
     const [stories, setStories] = useState(null);
     const [loadingStories, setLoadingStories] = useState(true);
     const theme = useContext(ThemeContext);
@@ -11,7 +11,7 @@ const Stories = () => {
 
     return (
         <React.Fragment>
-            <h1 className={`ui header text-${theme}`}>Top 50 Stories</h1>
+            <h1 className={`ui header text-${theme}`}>{header}</h1>
             {loadingStories 
                 ? <p>Loading</p>
                 : (
@@ -31,8 +31,8 @@ const Stories = () => {
 
 // StoryList proptypes.
 Stories.propTypes = {
-    // stories: PropTypes.array.isRequired,
-    // itemCount: PropTypes.number
+    type: PropTypes.string.isRequired,
+    header: PropTypes.string
 };
 
 export default Stories;
