@@ -10,7 +10,7 @@ const receiveInitialStories = (stories, storyType) => ({
 
 // thunk action creator.
 const handleReceiveInitialStories = (type) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     fetchStoryIds(type)
       .then(ids => {
         fetchAllStories(ids)

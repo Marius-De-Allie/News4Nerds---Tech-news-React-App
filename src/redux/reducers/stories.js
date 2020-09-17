@@ -10,7 +10,7 @@ const stories = (state = initialState, action) => {
     case RECEIVE_INITIAL_STORIES:
       return {
         ...state,
-        [action.type]: action.stories
+        [action.storyType]: action.stories
       }
     default:
       return state
