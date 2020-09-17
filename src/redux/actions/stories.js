@@ -18,4 +18,9 @@ const handleReceiveInitialStories = (type) => {
       })
 
   }
-}
+};
+
+export {
+  RECEIVE_INITIAL_STORIES,
+  handleReceiveInitialStories
+};
