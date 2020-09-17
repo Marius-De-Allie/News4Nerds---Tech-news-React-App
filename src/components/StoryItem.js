@@ -9,8 +9,7 @@ const StoryItem = ({ by, descendants, id, kids, score, time, title, type, url })
         <li className={`ui fluid raised card bg-${theme}`}>
             <div className='content'>
                 <a 
-                    className={`header story-link-${theme}`}
-                    id='story-link'
+                    className='header story-link'
                     href={url} target='_blank' 
                     rel='noopener noreferrer'
                 >

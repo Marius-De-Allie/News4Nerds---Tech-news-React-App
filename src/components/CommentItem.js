@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from  'react-router-dom';
 import parse from 'html-react-parser';
-import { FaUserAstronaut } from 'react-icons/fa';
+import { FaCommentDots } from 'react-icons/fa';
 //  Theme context consumer.
 import ThemeContext from '../contexts/theme';
 
@@ -11,7 +11,7 @@ const CommentItem = ({ by, text, time}) => {
     return (
         <li className='comment'>
             <span className='avatar' style={{fontSize: '16px'}}>
-                <FaUserAstronaut color='gold' size={26} />
+                <FaCommentDots size={26} />
             </span>
             <div className={`content`}>
                 <Link
