@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import queryString from 'query-string';
-import StoryList from './StoryList';
+import StoryItem from './StoryItem';
 import Loading from './Loading';
 import ThemeContext from '../contexts/theme';
 import { fetchUser, fetchItem, fetchUserStories } from '../utils/api';
@@ -53,7 +53,15 @@ const User = ({ location }) => {
 	const renderStoryList = () => {
 		return loadingStories 
 			? <Loading className={`text-${theme}`} text='Fetching stories' /> 
-			: <StoryList stories={stories} />
+			: (
+				<div className='story-list-container'>
+						<ul>
+								{stories.map(story => 
+										<StoryItem key={story.id} {...story} />
+								)}
+						</ul>
+				</div>
+			)
 	};
 
 	return (
