@@ -1,13 +1,52 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import StoryItem from './StoryItem';
 import ThemeContext from '../contexts/theme';
+import { fetchStoryIds, fetchItem } from '../utils/api';
 
 const Stories = ({ type, header }) => {
     const [stories, setStories] = useState(null);
     const [loadingStories, setLoadingStories] = useState(true);
     const theme = useContext(ThemeContext);
 
+
+    useEffect(() => {
+        fetchStoryIds(type)
+            .then((ids) => {
+                if(stories === null) {
+                    ids.forEach((storyId) => {
+                        fetchItem(storyId)
+                            .then((item) => {
+                                setStories(stories => ({
+                                    ...stories,
+                                    [storyId]: item
+                                }))
+                            })
+                    })
+                } else {
+                    ids.forEach((storyId) => {
+                        if(!stories[storyId]) {
+                            fetchItem(storyId)
+                                .then((item) => {
+                                    setStories(stories => ({
+                                        ...stories,
+                                        [storyId]: item
+                                    }))
+                                })
+                        }
+                    })
+                }
+                setLoadingStories(false);
+            })
+            .catch(e => console.warn('Unable to fetch story ids!'))
+
+    }, [type]);
+
+    let storiesArray;
+    if(stories !== null) {
+        storiesArray = Object.keys(stories).map(id => stories[id]);
+        console.log(storiesArray)
+    }
 
     return (
         <React.Fragment>
@@ -17,9 +56,11 @@ const Stories = ({ type, header }) => {
                 : (
                     <div className='story-list-container'>
                         <ul>
-                            {stories.map(story => 
+                            {storiesArray && storiesArray.length > 0 ? storiesArray.map(story => 
                                 <StoryItem key={story.id} {...story} />
-                            )}
+                            )
+                            : null
+                            }
                         </ul>
                     </div>
                 )
@@ -36,3 +77,8 @@ Stories.propTypes = {
 };
 
 export default Stories;
+
+
+// {storiesArray.map(story => 
+//     <StoryItem key={story.id} {...story} />
+// )}
