@@ -1,7 +1,8 @@
-import { fetchStoryIds, fetchAllStories } from '../../utils/api';
+import { fetchStoryIds, fetchAllStories, fetchItem } from '../../utils/api';
 
 const RECEIVE_INITIAL_STORIES = 'RECEIVE_INITIAL_STORIES';
-const TOGGLE_LOADING = 'TOGGLE_LOADING';
+const SET_LOADING = 'SET_LOADING';
+const UPDATE_STORIES = 'UPDATE_STORIES';
 
 const receiveInitialStories = (stories, storyType) => ({
   type: RECEIVE_INITIAL_STORIES,
@@ -9,18 +10,41 @@ const receiveInitialStories = (stories, storyType) => ({
   storyType
 });
 
-const toggleLoading = () => ({
-  type: TOGGLE_LOADING
+const setLoading = (value) => ({
+  type: SET_LOADING,
+  value
 });
 
 // thunk action creator.
 const handleReceiveInitialStories = (type) => {
   return (dispatch, getState) => {
+    let stor = getState().stories;
+    stor = stor[type];
+    dispatch(setLoading(true))
     fetchStoryIds(type)
       .then(ids => {
         fetchAllStories(ids)
-          .then(stories => dispatch(receiveInitialStories(stories, type)))
-          .then(() => dispatch(toggleLoading()));
+        .then(stories => {
+            dispatch(setLoading(false))
+            dispatch(receiveInitialStories(stories, type));
+          })
+      })
+
+  }
+};
+// thunk action creator.
+const handleUpdateStories = (type) => {
+  return (dispatch, getState) => {
+    let stor = getState().stories;
+    stor = stor[type];
+    dispatch(setLoading(true))
+    fetchStoryIds(type)
+      .then(ids => {
+        dispatch(setLoading(false))
+        fetchAllStories(ids)
+        .then(stories => {
+            dispatch(receiveInitialStories(stories, type));
+          })
       })
 
   }
@@ -28,6 +52,7 @@ const handleReceiveInitialStories = (type) => {
 
 export {
   RECEIVE_INITIAL_STORIES,
-  TOGGLE_LOADING,
-  handleReceiveInitialStories
+  SET_LOADING,
+  handleReceiveInitialStories,
+  handleUpdateStories
 };

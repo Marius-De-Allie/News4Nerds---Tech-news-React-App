@@ -3,54 +3,29 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import StoryItem from './StoryItem';
 import ThemeContext from '../contexts/theme';
-import { handleReceiveInitialStories } from '../redux/actions/stories';
+import { handleReceiveInitialStories, handleUpdateStories } from '../redux/actions/stories';
 import { fetchStoryIds, fetchItem, fetchAllStories } from '../utils/api';
 
 
 const Stories = ({ type, header }) => {
     // const [stories, setStories] = useState(null);
-    const [loadingStories, setLoadingStories] = useState(true);
+    // const [loadingStories, setLoadingStories] = useState(true);
     const theme = useContext(ThemeContext);
 
     const dispatch = useDispatch();
-    const stories = useSelector(state => state.stories[type])
-
+    const stories = useSelector(state => state.stories[type]);
+    const loading = useSelector(state => state.stories.loading)
 
     useEffect(() => {
-        setLoadingStories(true)
-        dispatch(handleReceiveInitialStories(type));
-        setLoadingStories(false);
+        // On initial page load.
+        if(stories === null) {
+            dispatch(handleReceiveInitialStories(type));
 
-
-        // fetchStoryIds(type)
-        //     .then((ids) => {
-        //         if(stories === null) {
-        //             console.log('THE FULL UPDATE RAN')
-        //             fetchAllStories(ids)
-        //                 .then((stories) => {
-        //                     setLoadingStories(false);
-        //                     setStories(stories);
-        //                 })
-        //         } else {
-        //             console.log('THE PARTIAL UPDATE RAN')
-
-        //             ids.forEach((storyId) => {
-        //                 if(!stories[storyId]) {
-        //                     fetchItem(storyId)
-        //                         .then((item) => {
-        //                             setStories(stories => ({
-        //                                 ...stories,
-        //                                 [storyId]: item
-        //                             }))
-        //                         })
-        //                 }
-        //             })
-        //         }
-        //         // setLoadingStories(false);
-        //     })
-        //     .catch(e => console.warn('Unable to fetch story ids!'))
-
-    }, [type]);
+            // On page reload/rerender.
+        } else {
+            dispatch(handleUpdateStories(type))
+        }
+    }, [type, dispatch]);
 
     let storiesArray;
     if(stories !== null) {
@@ -64,7 +39,7 @@ const Stories = ({ type, header }) => {
     return (
         <React.Fragment>
             <h1 className={`ui header text-${theme}`}>{header}</h1>
-            {loadingStories 
+            {loading
                 ? <p>Loading</p>
                 : (
                     <div className='story-list-container'>

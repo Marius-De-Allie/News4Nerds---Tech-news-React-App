@@ -1,4 +1,4 @@
-import { RECEIVE_INITIAL_STORIES, TOGGLE_LOADING } from '../actions/stories';
+import { RECEIVE_INITIAL_STORIES, SET_LOADING } from '../actions/stories';
 
 const initialState = {
   topstories: null,
@@ -13,10 +13,10 @@ const stories = (state = initialState, action) => {
         ...state,
         [action.storyType]: action.stories,
       }
-    case TOGGLE_LOADING:
+    case SET_LOADING:
       return {
         ...state,
-        loading: !state.loading
+        loading: action.value
       }
     default:
       return state
