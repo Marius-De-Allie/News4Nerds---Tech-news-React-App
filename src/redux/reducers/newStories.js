@@ -1,6 +1,7 @@
 
+
 const initialState = {};
-const topStories = (state = initialState, action) => {
+const newStories = (state = initialState, action) => {
   switch(action.type) {
 
     default:
@@ -9,4 +10,4 @@ const topStories = (state = initialState, action) => {
 
 };
 
-export default topStories;
+export default newStories;
