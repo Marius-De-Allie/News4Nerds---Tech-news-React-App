@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import StoryItem from './StoryItem';
 import ThemeContext from '../contexts/theme';
-import { fetchStoryIds, fetchItem } from '../utils/api';
+import { fetchStoryIds, fetchItem, fetchAllStories } from '../utils/api';
 
 const Stories = ({ type, header }) => {
     const [stories, setStories] = useState(null);
@@ -14,18 +14,24 @@ const Stories = ({ type, header }) => {
         fetchStoryIds(type)
             .then((ids) => {
                 if(stories === null) {
-
-                    // TODO replace with api function.
-                    ids.forEach((storyId) => {
-                        fetchItem(storyId)
-                            .then((item) => {
-                                setStories(stories => ({
-                                    ...stories,
-                                    [storyId]: item
-                                }))
-                            })
-                    })
+                    console.log('THE FULL UPDATE RAN')
+                    fetchAllStories(ids)
+                        .then((stories) => {
+                            setLoadingStories(false);
+                            setStories(stories);
+                        })
+                    // ids.forEach((storyId) => {
+                    //     fetchItem(storyId)
+                    //         .then((item) => {
+                    //             setStories(stories => ({
+                    //                 ...stories,
+                    //                 [storyId]: item
+                    //             }))
+                    //         })
+                    // })
                 } else {
+                    console.log('THE PARTIAL UPDATE RAN')
+
                     ids.forEach((storyId) => {
                         if(!stories[storyId]) {
                             fetchItem(storyId)
@@ -38,7 +44,7 @@ const Stories = ({ type, header }) => {
                         }
                     })
                 }
-                setLoadingStories(false);
+                // setLoadingStories(false);
             })
             .catch(e => console.warn('Unable to fetch story ids!'))
 

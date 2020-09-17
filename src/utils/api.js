@@ -47,14 +47,15 @@ const fetchStories = async (storyIdsArray, currentStories) => {
 const fetchAllStories = async (storyIdsArray) => {
 	let stories = {};
 	try {
-		storyIdsArray.forEach(async(id) => {
-			const item = await fetchItem(id);
-	
+		for(let i = 0; i < storyIdsArray.length; i++) {
+			const item = await fetchItem(storyIdsArray[i]);
+
 			stories = {
 				...stories,
-				[id]: item
+				[storyIdsArray[i]]: item
 			}
-		});
+
+		}
 	} catch(e) {
 		throw new Error('Unable to fetch stories');
 	}
