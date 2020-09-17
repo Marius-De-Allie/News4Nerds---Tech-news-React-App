@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import StoryItem from './StoryItem';
+import Loading from './Loading';
 import ThemeContext from '../contexts/theme';
 import { handleReceiveInitialStories, handleUpdateStories } from '../redux/actions/stories';
 import { fetchStoryIds, fetchItem, fetchAllStories } from '../utils/api';
@@ -40,7 +41,7 @@ const Stories = ({ type, header }) => {
         <React.Fragment>
             <h1 className={`ui header text-${theme}`}>{header}</h1>
             {loading
-                ? <p>Loading</p>
+                ? <Loading text={`Fetching ${type === 'newstories' ? 'New' : 'Top'} stories`}/>
                 : (
                     <div className='story-list-container'>
                         <ul>

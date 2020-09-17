@@ -104,6 +104,11 @@ h1.text-dark {
   color: #dadada;
 }
 
+// Story title header link dark mode hover styling. 
+h2.text-dark:hover {
+  color: gold;
+}
+ 
 p.description#comment-meta {
   &.text-dark {
     color: #dadada;
@@ -135,7 +140,6 @@ div.ui.divider {
     background-color: #dadada;
   }
 }
-
 
 // comment text styling.
 li.comment div.content {
