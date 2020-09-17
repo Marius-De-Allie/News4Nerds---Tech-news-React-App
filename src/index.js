@@ -1,14 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import logger from 'redux-logger'
 import App from './App';
+import reducer from './redux/reducers';
 import * as serviceWorker from './serviceWorker';
 import './index.scss';
+
+const store = createStore(reducer, applyMiddleware(logger));
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
