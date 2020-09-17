@@ -44,6 +44,23 @@ const fetchStories = async (storyIdsArray, currentStories) => {
 	return stories;
 };
 
+const fetchAllStories = async (storyIdsArray) => {
+	let stories = {};
+	try {
+		storyIdsArray.forEach(async(id) => {
+			const item = await fetchItem(id);
+	
+			stories = {
+				...stories,
+				[id]: item
+			}
+		});
+	} catch(e) {
+		throw new Error('Unable to fetch stories');
+	}
+	return stories;
+};
+
 /**** HN USER API ****/
 
 // Fetch HN user details.
@@ -86,5 +103,6 @@ export {
 	fetchUser,
 	fetchItem,
 	fetchStoryIds,
-	fetchUserStories
+	fetchUserStories,
+	fetchAllStories
 }

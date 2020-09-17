@@ -14,6 +14,8 @@ const Stories = ({ type, header }) => {
         fetchStoryIds(type)
             .then((ids) => {
                 if(stories === null) {
+
+                    // TODO replace with api function.
                     ids.forEach((storyId) => {
                         fetchItem(storyId)
                             .then((item) => {
