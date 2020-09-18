@@ -40,6 +40,7 @@ const Comments = ({ location }) => {
 	const [state, dispatch] = useReducer(commentsReducer, {
 		postDetails: {},
 		comments: {},
+		loadingComments: true,
 		error: null
 	});
 
@@ -55,7 +56,7 @@ const Comments = ({ location }) => {
 					dispatch({ type: 'item_success', item });
 
 					const commentIds = item.kids.slice(null, 50);
-					for(let i =0; i < commentIds.length; i++) {
+					for(let i = 0; i < commentIds.length; i++) {
 						if(!state.comments[commentIds[i]]) {
 							fetchItem(commentIds[i])
 								.then(comment => {
