@@ -6,19 +6,21 @@ const Loader = styled.p`
   text-align: center;
 `;
 
-const Loading = ({ text = 'Loading' , speed = 300 }) => {
+const Loading = ({ text = 'Loading', speed = 300 }) => {
   const [content, setContent] = useState(text);
   const id = useRef(null);
 
     useEffect(() => {
-      id.current = setInterval(() => {
-        content === `${text}...` 
-        ? setContent(text) 
-        : setContent(content => content + '.');
-      }, speed);
+      id.current = window.setInterval(() => {
+        setContent((content) => {
+          return content === `${text}...`
+            ? text 
+            : `${content}.`
+        })
+      }, speed)
 
-      return clearInterval(id.current);
-    }, [content, speed, text]);
+      return () => window.clearInterval(id.current);
+    }, [speed, text]);
 
     return (
       <Loader>
@@ -60,8 +62,8 @@ const Loading = ({ text = 'Loading' , speed = 300 }) => {
 // };
 
 Loading.propTypes = {
-  text: PropTypes.string.isRequired,
-  speed: PropTypes.number.isRequired
+  text: PropTypes.string,
+  speed: PropTypes.number
 }
 
 export default Loading;
