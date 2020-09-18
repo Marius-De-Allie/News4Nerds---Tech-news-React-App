@@ -1,7 +1,8 @@
 import React, { useReducer, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import queryString from 'query-string';
-import { fetchItem} from '../utils/api';
+import Loading from './Loading';
+import { fetchItem, fetchComments } from '../utils/api';
 // Theme context consumer.
 import ThemeContext from '../contexts/theme';
 
@@ -23,13 +24,23 @@ const commentsReducer = (state, action) => {
 			error: action.itemError
 		}
 
-	} else if(action.type === 'comment_success') {
+	} else if(action.type === 'comments_success') {
 		return {
 			...state,
-			comments: {
-				...state.comments,
-				[action.comment.id]: {...action.comment}
-			}
+			comments: state.comments.concat(action.comments),
+			loadingComments: false
+		}
+	} else if(action.type === 'comments_fail') {
+		return {
+			...state,
+			loadingComments: false,
+			error: action.error
+		}
+
+	} else if(action.type === 'begin_fetch') {
+		return {
+			...state,
+			loadingComments: true
 		}
 	} else{
 		throw new Error('No such action type');
@@ -39,7 +50,7 @@ const commentsReducer = (state, action) => {
 const Comments = ({ location }) => {
 	const [state, dispatch] = useReducer(commentsReducer, {
 		postDetails: {},
-		comments: {},
+		comments: [],
 		loadingComments: true,
 		error: null
 	});
@@ -50,36 +61,28 @@ const Comments = ({ location }) => {
 	const { id } = queryString.parse(location.search);
 
 	useEffect(() => {
+		dispatch({ type: 'begin_fetch' });
 		if(!state.postDetails[id]) {
 			fetchItem(id)
 				.then(item => {
 					dispatch({ type: 'item_success', item });
 
 					const commentIds = item.kids.slice(null, 50);
-					for(let i = 0; i < commentIds.length; i++) {
-						if(!state.comments[commentIds[i]]) {
-							fetchItem(commentIds[i])
-								.then(comment => {
-									dispatch({ type: 'comment_success', comment});
-								})
-								.catch(e => {
-									// dispatch({ type: 'comment_fail', commentError: e })
-									console.warn(e);
-								})
-						}
-					}
+					fetchComments(commentIds)
+						.then(comments => {
+							dispatch({ type: 'comments_success', comments });
+						})
+						.catch(({ message }) => dispatch({ type: 'comments_fail', error: message })); 
 				})
 				.catch(e => {
+					// TODO dispatch action for item fail type.
 					// dispatch({ type: 'item_fail', itemError: e });
 					console.warn(e);
 				})
 		}
-	}, [id, state]);
+	}, [id, state.postDetails]);
 
-		// const urlQuerystring = queryString.parse(this.props.location.search);
-		const ids = Object.keys(state.comments);
-		const comments = ids.map(el => state.comments[el]);
-
+	
 	return (
 				<React.Fragment>
 						{state.postDetails[id] ? (
@@ -105,7 +108,7 @@ const Comments = ({ location }) => {
 						) :
 						null
 					} 
-						<LazyCommentsList comments={comments} />
+						{state.loadingComments ? <Loading text='Fetching Comments' /> : <LazyCommentsList comments={state.comments} />}
 				</React.Fragment>
 	);
 };
