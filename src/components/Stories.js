@@ -41,7 +41,7 @@ const Stories = ({ type, header }) => {
         <React.Fragment>
             <h1 className={`ui header text-${theme}`}>{header}</h1>
             {loading
-                ? <Loading text={`Fetching ${type === 'newstories' ? 'New' : 'Top'} stories`}/>
+                ? <Loading text={`Fetching ${type === 'newstories' ? 'New' : 'Top'} stories`} speed={300} />
                 : (
                     <div className='story-list-container'>
                         <ul>
