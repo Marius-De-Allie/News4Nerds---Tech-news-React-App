@@ -51,7 +51,7 @@ const Comments = ({ location }) => {
 	const [state, dispatch] = useReducer(commentsReducer, {
 		postDetails: {},
 		comments: [],
-		loadingComments: true,
+		loadingComments: false,
 		error: null
 	});
 
@@ -61,13 +61,13 @@ const Comments = ({ location }) => {
 	const { id } = queryString.parse(location.search);
 
 	useEffect(() => {
-		dispatch({ type: 'begin_fetch' });
 		if(!state.postDetails[id]) {
 			fetchItem(id)
 				.then(item => {
 					dispatch({ type: 'item_success', item });
 
 					const commentIds = item.kids.slice(null, 50);
+					dispatch({ type: 'begin_fetch' });
 					fetchComments(commentIds)
 						.then(comments => {
 							dispatch({ type: 'comments_success', comments });
