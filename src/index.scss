@@ -26,9 +26,31 @@ code {
 
 nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  margin-bottom: 2rem;
+
+  #logo {
+    padding: .5rem;
+    cursor: pointer;
+  }
+
+  div.nav-container {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+
+    .theme-btn {
+      font-size: 2.6rem;
+    }
+  }
+
+  .nav-items {
+    padding-left: 1rem;
+  }
   .nav-items .nav-links {
+    font-size: 1.8rem;
     margin-right: 1rem;
     color: #1c2022;
     &.active {
