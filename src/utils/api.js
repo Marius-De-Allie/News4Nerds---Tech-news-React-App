@@ -98,6 +98,18 @@ const fetchUserStories = async(storyIdsArray, currentStories) => {
 	return stories;
 };
 
+// COMMENTS 
+const fetchComments = async(IdsArray) => {
+	let comments =[];
+
+	for(let i = 0; i < IdsArray.length; i++) {
+		const comment = await fetchItem(IdsArray[i]);
+		comments = [...comments, comment];
+	};
+
+	return comments;
+};
+
 export {
 	fetchStories as default,
 	fetchUserStory,
@@ -105,5 +117,6 @@ export {
 	fetchItem,
 	fetchStoryIds,
 	fetchUserStories,
-	fetchAllStories
+	fetchAllStories,
+	fetchComments
 }
